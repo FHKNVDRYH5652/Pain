@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akatsuki Project Login</title>
+    <style>
+        /* General Reset and Font */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            color: #fff;
+            overflow: hidden; /* Prevent scroll on initial load */
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* --- Page Styling --- */
+
+        /* PAGE 1: Video Splash Screen */
+        #video-splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #video-player {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #skip-button {
+            position: fixed; /* Position the button relative to the viewport */
+            bottom: 20px;    /* 20px from the bottom */
+            right: 20px;     /* 20px from the right */
+            padding: 10px 20px;
+            background-color: #ff0000; /* Red skip button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s;
+            z-index: 1001; /* Ensure it's above the video */
+        }
+        #skip-button:hover {
+            background-color: #cc0000;
+        }
+
+        /* PAGE 2 & 3: Main App Interface */
+        .app-interface {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 350px;
+            color: #000; /* Text color for the main interface */
+        }
+        .video-container-top {
+            width: 100%;
+            height: 180px;
+            background-color: #000;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .video-container-top video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* PAGE 2: Join Channel Pop-up */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+        .popup-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+        }
+        .popup-box h3 {
+            color: #4CAF50; /* Green text for "Official Channel Join" */
+            margin-bottom: 5px;
+        }
+        .popup-box p {
+            color: #333;
+            font-size: 14px;
+        }
+        .popup-buttons button {
+            padding: 10px 20px;
+            margin: 10px 5px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .popup-buttons .join-btn {
+            background-color: #9900ff; /* Purple for Join */
+            color: white;
+        }
+        .popup-buttons .cancel-btn {
+            background-color: #555; /* Dark gray for Cancel */
+            color: white;
+        }
+        .popup-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-image: url('anime1.png'); /* Set popup logo image */
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto 15px;
+            border: 2px solid #000;
+        }
+
+        /* PAGE 3: Login/Password Input */
+        .login-box {
+            display: none; /* Hidden until video or skip finishes */
+        }
+        .license-input-wrapper {
+            background-color: #eee;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+        }
+        .key-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #008cba; /* Blue text for "License Key" */
+            text-shadow: 1px 1px 1px #000;
+        }
+        #password-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            outline: none;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #ffe400; /* Yellow button */
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #ccb700;
+            transition: background-color 0.1s;
+        }
+        .login-btn:active {
+            box-shadow: none;
+            transform: translateY(4px);
+        }
+
+        /* Themed Text */
+        .themed-quote {
+            margin-top: 25px;
+            margin-bottom: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000; /* Changed to black for contrast on white background */
+            text-shadow: 1px 1px #ccc; /* Lighter shadow */
+        }
+        .red-text { color: #ff0000; }
+        .green-text { color: #00ff00; }
+
+        /* Bottom Icons */
+        .bottom-icons {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 30px;
+        }
+        .bottom-icon-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline for links */
+            color: #000;
+        }
+        .bottom-icon-wrapper span.icon {
+            font-size: 40px;
+            line-height: 1; /* Adjust line height for icons */
+        }
+        .bottom-icon-wrapper span.label {
+            font-size: 12px;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+
+        /* PAGE 4: Prediction/Tool Page */
+        #tool-page {
+            background-color: #2c3e50; /* Dark blue/gray background */
+            padding: 40px 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+            display: none; /* Hidden initially */
+            background-image: url('anime.png'); /* Background image for tool page */
+            background-size: cover;
+            background-position: center;
+        }
+        #tool-page h1 {
+            color: #f1c40f; /* Yellow title */
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px #000;
+        }
+        #tool-page h2 {
+            color: #ecf0f1;
+            font-size: 16px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px #000;
+        }
+        #tool-page input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        #generate-btn {
+            background-color: #e74c3c; /* Red generate button */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #generate-btn:hover {
+            background-color: #c0392b;
+        }
+        #result {
+            margin-top: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2ecc71; /* Green result text */
+            min-height: 30px;
+            text-shadow: 1px 1px #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="video-splash">
+        <div id="video-player">
+            <video id="intro-video" src="pain.mp4" playsinline autoplay muted></video>
+        </div>
+        <button id="skip-button">Skip Video</button>
+    </div>
+
+    <div class="app-interface login-box" id="main-login-page">
+        <div class="video-container-top">
+            <video id="eye-video" src="eye.mp4" playsinline autoplay loop muted></video>
+        </div>
+
+        <form id="login-form">
+            <div class="license-input-wrapper">
+                <span class="key-text">LICENSE KEY</span>
+                <input type="password" id="password-input" placeholder="Input password" required>
+            </div>
+
+            <button type="submit" class="login-btn">LOGIN</button>
+        </form>
+
+        <p class="themed-quote">I'VE GROWN FROM <span class="red-text">MAN</span> TO <span class="green-text">GOD</span></p>
+
+        <div class="bottom-icons">
+            <a href="https://t.me/+hzN8Ci0F7aYzMmY9" target="_blank" class="bottom-icon-wrapper">
+                <span class="icon">✈️</span>
+                <span class="label">TELEGRAM</span>
+            </a>
+            <a href="https://t.me/Predict456" target="_blank" class="bottom-icon-wrapper">
+                <span class="icon">🔑</span>
+                <span class="label">KEY</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="channel-popup">
+        <div class="popup-box">
+            <div class="popup-icon"></div>
+            <h3>OFFICIAL CHANNEL JOIN</h3>
+            <p>Get latest updates and announcements in our Community Channel.</p>
+            <div class="popup-buttons">
+                <button class="join-btn" id="join-channel-btn">JOIN</button>
+                <button class="cancel-btn" id="cancel-popup-btn">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tool-page">
+        <h1>Mickey Pro Version Tool</h1>
+        <h2>Enter a number to generate a result</h2>
+
+        <input type="number" id="period-number" placeholder="Enter period number" required>
+
+        <button id="generate-btn">Generate Result</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const videoSplash = document.getElementById('video-splash');
+        const introVideo = document.getElementById('intro-video');
+        const skipButton = document.getElementById('skip-button');
+        const mainLoginPage = document.getElementById('main-login-page');
+        const eyeVideo = document.getElementById('eye-video'); // New: reference to the eye video
+        const channelPopup = document.getElementById('channel-popup');
+        const joinChannelBtn = document.getElementById('join-channel-btn');
+        const cancelPopupBtn = document.getElementById('cancel-popup-btn');
+        const loginForm = document.getElementById('login-form');
+        const passwordInput = document.getElementById('password-input');
+        const toolPage = document.getElementById('tool-page');
+        const generateBtn = document.getElementById('generate-btn');
+        const resultDiv = document.getElementById('result');
+
+        const CORRECT_PASSWORD = 'Mickey456';
+        const TELEGRAM_LINK_MAIN = 'https://t.me/+hzN8Ci0F7aYzMmY9'; // Your requested link for join
+        const TELEGRAM_LINK_KEY = 'https://t.me/Predict456'; // Your requested link for key icon
+
+        // --- 1. Video and Skip Logic ---
+
+        const showLoginPage = () => {
+            videoSplash.style.display = 'none';
+            document.body.style.backgroundColor = 'white'; // Change body background for the login page
+            mainLoginPage.style.display = 'block';
+            eyeVideo.play(); // Start playing the eye video
+            // Show the pop-up immediately after the video/skip
+            channelPopup.style.display = 'flex';
+        };
+
+        // When video ends
+        introVideo.onended = showLoginPage;
+
+        // When skip button is clicked
+        skipButton.onclick = showLoginPage;
+
+        // --- 2. Pop-up Logic ---
+
+        // Join button redirects to Telegram link
+        joinChannelBtn.onclick = () => {
+            window.open(TELEGRAM_LINK_MAIN, '_blank');
+            channelPopup.style.display = 'none';
+        };
+
+        // Cancel button closes the pop-up, showing the login page underneath
+        cancelPopupBtn.onclick = () => {
+            channelPopup.style.display = 'none';
+        };
+
+        // --- 3. Login Logic ---
+
+        loginForm.onsubmit = (e) => {
+            e.preventDefault();
+            if (passwordInput.value === CORRECT_PASSWORD) {
+                mainLoginPage.style.display = 'none';
+                toolPage.style.display = 'block';
+                document.body.style.backgroundColor = 'transparent'; // Background handled by tool-page itself
+            } else {
+                alert('Incorrect Password. Please try again.');
+                passwordInput.value = '';
+            }
+        };
+
+        // --- 4. Tool/Result Generation Logic ---
+
+        generateBtn.onclick = () => {
+            const periodNumber = document.getElementById('period-number').value;
+            if (!periodNumber) {
+                alert('Please enter a period number.');
+                return;
+            }
+
+            // Randomly select 'BIG' or 'SMALL'
+            const outcomes = ['BIG', 'SMALL'];
+            const randomIndex = Math.floor(Math.random() * outcomes.length);
+            const result = outcomes[randomIndex];
+
+            resultDiv.textContent = result;
+        };
+
+    </script>
+</body>
+</html>
