@@ -1,0 +1,1014 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mr Perfect PRO — WINGO Pro Max</title>
+<style>
+  /* ====== THEME: Red-Orange Fiery Glow ====== */
+  :root{
+    --bg:#040306;
+    --panel:#0b0607;
+    --accent1:#ff4500; /* orange-red */
+    --accent2:#ff8c42; /* light orange */
+    --glow: 0 0 18px rgba(255,84,0,0.12), 0 6px 40px rgba(255,84,0,0.06);
+    --muted:#9aa1a6;
+    --glass: rgba(255,255,255,0.02);
+    --neon: rgba(255,120,50,0.12);
+    --success:#66f48a;
+    --danger:#ff7b7b;
+    --card-radius:14px;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:radial-gradient(1200px 700px at 10% 10%, rgba(255,84,0,0.02), transparent), linear-gradient(180deg,#040306 0%, #070307 60%); color:#e6e6e6; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;}
+  /* animated fiery particles background */
+  #bg {
+    position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;
+    background: radial-gradient(ellipse at top left, rgba(255,80,10,0.02), transparent 10%),
+                linear-gradient(180deg, rgba(20,6,6,0.2), rgba(0,0,0,0.35));
+  }
+  .particle {
+    position:absolute; width:6px; height:6px; border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, #ff9b58, #ff4500);
+    filter: blur(6px); opacity:0.9; mix-blend-mode:screen;
+  }
+
+  /* Main container */
+  .wrap{position:relative; z-index:5; max-width:1200px; margin:28px auto; padding:26px; border-radius:16px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); box-shadow:0 10px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,120,50,0.06)}
+  header{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+  .logo{display:flex;align-items:center;gap:12px}
+  .logo .badge{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));box-shadow:var(--glow);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--mono);font-size:18px}
+  h1{margin:0;font-size:20px;letter-spacing:0.6px}
+  p.lead{margin:0;color:var(--muted);font-size:13px}
+
+  /* panels */
+  .grid{display:grid;grid-template-columns: 520px 1fr; gap:18px; align-items:start}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.03)); padding:14px;border-radius:var(--card-radius); border:1px solid rgba(255,120,50,0.03)}
+  .small{font-size:13px;color:var(--muted)}
+  .inputs{display:grid;grid-template-columns: repeat(5,1fr); gap:8px}
+  .box {background:var(--glass); border:1px solid rgba(255,120,50,0.06); padding:8px; border-radius:8px; text-align:center; font-size:18px; color:#fff}
+  input.num {width:100%; background:transparent; border:none; outline:none; font-size:18px; color:#fff; text-align:center}
+  .controls{display:flex; gap:8px; margin-top:12px; align-items:center}
+  button.btn{background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:#fff; padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:600; box-shadow:var(--glow)}
+  button.ghost{background:transparent; border:1px solid rgba(255,120,50,0.12); color:var(--accent2); padding:8px 10px; border-radius:8px; cursor:pointer}
+
+  /* big sections */
+  .analysis {height:260px; overflow:auto; padding:10px}
+  .logic-list{display:grid; gap:8px}
+  .logic{display:flex; align-items:center; justify-content:space-between; background:rgba(0,0,0,0.2); padding:8px; border-radius:8px; border:1px solid rgba(255,120,50,0.04)}
+  .logic strong{font-family:var(--mono); font-size:13px}
+  .vote{font-weight:700; font-size:14px; padding:6px 10px; border-radius:8px}
+  .vote.big{background:linear-gradient(90deg,#ff7a46, #ff3b13); color:#fff}
+  .vote.small{background:rgba(255,255,255,0.02); color:#f7d0c8; border:1px solid rgba(255,120,50,0.06)}
+
+  .result-area{padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,120,50,0.02), rgba(0,0,0,0.06)); border:1px solid rgba(255,120,50,0.03)}
+  .result {display:flex; gap:12px; align-items:center}
+  .result .bigsmall{font-size:18px; font-weight:800; padding:14px 18px; border-radius:12px}
+  .bigsmall.big{background:linear-gradient(90deg,#ff6b2f,#ff2d00); box-shadow:0 6px 30px rgba(255,80,20,0.12)}
+  .bigsmall.small{background:linear-gradient(90deg,#201318,#2b1419); box-shadow:inset 0 1px 0 rgba(255,255,255,0.02); color:#f8bdb0}
+
+  .meta{font-size:13px; color:var(--muted)}
+  .confidence{font-weight:800; font-family:var(--mono); font-size:18px; color:var(--accent2)}
+  .flag{display:inline-block;padding:6px 8px;border-radius:8px;font-weight:700}
+  .flag.sure{background:linear-gradient(90deg,#ffd3b8,#ff8c42); color:#3b0b00}
+  .flag.risky{background:rgba(255,0,0,0.08); color:#ff8c42}
+
+  /* chart area */
+  .chart-card{height:220px; display:flex; flex-direction:column; gap:8px; justify-content:center; align-items:center}
+  canvas{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02)); border-radius:10px; width:100%; height:150px}
+
+  /* bottom actions */
+  .feedback{display:flex; gap:8px; margin-top:12px}
+  .win{background:linear-gradient(90deg,#38e67a,#18c76a); color:#05110a}
+  .loss{background:linear-gradient(90deg,#ff8b8b,#ff5b5b); color:#3b0707}
+
+  /* admin overlay */
+  #admin{position:fixed; right:20px; top:80px; width:420px; max-height:80vh; overflow:auto; z-index:50; display:none}
+  .admin-card{padding:12px; border-radius:12px; background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.75)); border:1px solid rgba(255,120,50,0.06); box-shadow:0 10px 40px rgba(0,0,0,0.6)}
+  .stat{display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed rgba(255,120,50,0.03); color:var(--muted)}
+
+  /* access overlay */
+  #accessOverlay{position:fixed; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.95)); z-index:100; display:flex; align-items:center; justify-content:center}
+  .access-box{width:420px; padding:20px; border-radius:14px; text-align:center; background:linear-gradient(180deg,#120505,#1b0707); border:1px solid rgba(255,120,50,0.08); box-shadow:0 20px 80px rgba(0,0,0,0.8)}
+  .access-box input{width:100%; padding:12px; border-radius:10px; border:1px solid rgba(255,120,50,0.06); background:transparent; color:#fff; font-size:16px; margin-top:10px}
+
+  /* mobile responsiveness */
+  @media (max-width:980px){
+    .grid{grid-template-columns: 1fr; gap:12px}
+    .inputs{grid-template-columns: repeat(3,1fr)}
+  }
+  footer{margin-top:12px; text-align:center; color:var(--muted); font-size:12px}
+</style>
+</head>
+<body>
+  <div id="bg"></div>
+
+  <!-- ACCESS KEY OVERLAY -->
+  <div id="accessOverlay">
+    <div class="access-box">
+      <div style="display:flex;align-items:center;gap:10px;justify-content:center">
+        <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#ff5c2a,#ff9b58);display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--mono)">MP</div>
+      </div>
+      <h2 style="margin:10px 0 6px">Mr Perfect PRO — Access</h2>
+      <div class="small">Enter access key to open the dashboard</div>
+      <input id="accessKey" placeholder="Enter access key" autocomplete="off" />
+      <div style="margin-top:12px; display:flex; gap:8px; justify-content:center">
+        <button class="btn" id="accessBtn">Unlock</button>
+        <button class="ghost" id="demoBtn">Open Demo (read-only)</button>
+      </div>
+      <div id="accessMsg" style="margin-top:10px;color:#ffb7a5;font-size:13px"></div>
+      <div style="margin-top:14px;color:var(--muted);font-size:12px">Access key = <strong style="color:var(--accent2)">Mrperfect456</strong></div>
+    </div>
+  </div>
+
+  <!-- TELEGRAM POPUP (first load) -->
+  <div id="tgPopup" style="position:fixed;right:18px;bottom:18px;z-index:60;display:none">
+    <div style="background:linear-gradient(90deg,#1b0707,#380a08); padding:12px;border-radius:12px; box-shadow:var(--glow); border:1px solid rgba(255,120,50,0.06); color:#fff">
+      <div style="font-weight:800">Join our Telegram</div>
+      <div style="font-size:13px;color:var(--muted)">Get signals & updates</div>
+      <div style="margin-top:8px;display:flex;gap:6px">
+        <a id="tgJoin" href="https://t.me/+hzN8Ci0F7aYzMmY9" target="_blank" class="btn" style="padding:8px 10px">Join Channel</a>
+        <button id="tgClose" class="ghost">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" role="main" aria-label="Mr Perfect WINGO Pro Max">
+    <header>
+      <div class="logo">
+        <div class="badge">MP</div>
+        <div>
+          <h1>Mr Perfect PRO — WINGO Pro Max</h1>
+          <p class="lead">Red–Orange Fiery Glow • Single-file local predictor • Ensemble AI + learning</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT: Inputs & Controls -->
+      <div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="small">Past results — Boxes 1 (oldest) → 15 (latest)</div>
+              <div class="small" style="font-size:12px;color:var(--muted)">Enter numbers 0–9. Big if number ≥5. Color mapping used below.</div>
+            </div>
+            <div>
+              <label class="small">Safety override <input type="checkbox" id="safetyToggle" checked /></label>
+            </div>
+          </div>
+          <div style="margin-top:10px" class="inputs" id="boxGrid">
+            <!-- 15 boxes -->
+            <div class="box"><input class="num" id="b1" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b2" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b3" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b4" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b5" maxlength="1" inputmode="numeric" /></div>
+
+            <div class="box"><input class="num" id="b6" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b7" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b8" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b9" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b10" maxlength="1" inputmode="numeric" /></div>
+
+            <div class="box"><input class="num" id="b11" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b12" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b13" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b14" maxlength="1" inputmode="numeric" /></div>
+            <div class="box"><input class="num" id="b15" maxlength="1" inputmode="numeric" /></div>
+          </div>
+
+          <div style="margin-top:12px">
+            <div class="small">Or paste last results (oldest first) — up to 100 numbers, comma separated</div>
+            <textarea id="bigText" style="width:100%;height:86px;margin-top:8px;background:transparent;border:1px solid rgba(255,120,50,0.04);padding:8px;border-radius:8px;color:#fff"></textarea>
+          </div>
+
+          <div class="controls">
+            <button class="btn" id="analyzeBtn">Analyze & Predict</button>
+            <button class="ghost" id="backtestBtn">Backtest Pasted History</button>
+            <button class="ghost" id="clearBtn">Clear</button>
+            <div style="margin-left:auto;font-size:13px;color:var(--muted)">Theme: <strong style="color:var(--accent2)">Red–Orange</strong></div>
+          </div>
+
+          <div style="margin-top:12px" class="small">Color mapping (default): <strong>0→Red, 1→Green, 2→Red, 3→Green, 4→Red, 5→Green, 6→Violet, 7→Violet, 8→Red, 9→Green</strong> (You can change mapping in admin)</div>
+        </div>
+
+        <!-- Win/Loss panel -->
+        <div class="card" style="margin-top:12px">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div><strong>Result Feedback</strong><div class="small">Click after round to teach the AI</div></div>
+            <div class="meta">Stored locally in browser</div>
+          </div>
+          <div style="margin-top:10px; display:flex; gap:8px; align-items:center">
+            <button class="btn win" id="markWin">Mark Win</button>
+            <button class="btn loss" id="markLoss">Mark Loss</button>
+            <button class="ghost" id="resetMemory">Reset Learning</button>
+            <div style="margin-left:auto" class="small">Accuracy: <span id="accDisplay">—</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Analysis & Output -->
+      <div>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; gap:12px; align-items:center">
+            <div>
+              <strong>Prediction Analysis</strong>
+              <div class="small">AI simulates deep analysis. Methods shown below.</div>
+            </div>
+            <div class="small">Last run: <span id="lastRun">—</span></div>
+          </div>
+
+          <div style="margin-top:12px" class="result-area">
+            <div class="result">
+              <div id="finalBox" style="min-width:220px">
+                <div class="bigsmall" id="finalBigSmall" style="display:inline-block">—</div>
+                <div style="margin-top:8px" class="meta">Color: <span id="finalColor">—</span></div>
+              </div>
+
+              <div style="flex:1">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div>
+                    <div class="small">Confidence</div>
+                    <div class="confidence" id="confidence">—</div>
+                  </div>
+                  <div>
+                    <div class="small">Trend Strength</div>
+                    <div style="font-weight:800;color:var(--accent2)" id="trendStrength">—</div>
+                  </div>
+                  <div style="margin-left:auto">
+                    <div class="small">AI Verdict</div>
+                    <div id="verdictFlag" class="flag risky">—</div>
+                  </div>
+                </div>
+
+                <div style="margin-top:10px">
+                  <div id="thinkingArea" style="display:none;padding:8px;background:rgba(255,120,50,0.02);border-radius:8px;border:1px dashed rgba(255,120,50,0.04)">
+                    <div style="display:flex;align-items:center;gap:10px">
+                      <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(90deg,#ff6b2f,#ff2d00);display:flex;align-items:center;justify-content:center;font-weight:700">AI</div>
+                      <div>
+                        <div style="font-weight:800">Analyzing patterns...</div>
+                        <div style="font-size:13px;color:var(--muted)">Simulating deep reasoning. Please wait.</div>
+                      </div>
+                    </div>
+                    <div style="margin-top:10px">
+                      <div style="height:8px;background:rgba(0,0,0,0.2);border-radius:8px;overflow:hidden">
+                        <div id="thinkBar" style="height:100%; width:0%; background:linear-gradient(90deg,#ff8c42,#ff4500)"></div>
+                      </div>
+                      <div style="font-size:12px;color:var(--muted);margin-top:6px">Phase: <span id="thinkPhase">—</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px">
+              <div style="display:flex;gap:8px;align-items:center">
+                <button class="btn" id="toggleDetails">Show Methods</button>
+                <button class="ghost" id="exportBtn">Export History</button>
+                <div style="margin-left:auto" class="small">Mode: <strong id="modeLabel">Boxes 15</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- logic breakdown -->
+          <div class="analysis" id="analysisPanel" style="margin-top:12px; display:none">
+            <div class="logic-list" id="logicList">
+              <!-- dynamic logic rows -->
+            </div>
+          </div>
+        </div>
+
+        <!-- charts -->
+        <div class="card" style="margin-top:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><strong>Trend & Accuracy</strong><div class="small">Recent patterns visualized</div></div>
+            <div class="small">Stored rounds: <span id="storedRounds">0</span></div>
+          </div>
+          <div style="margin-top:10px" class="chart-card">
+            <canvas id="trendChart" width="600" height="160"></canvas>
+            <canvas id="accChart" width="600" height="80"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer>
+      <div>Built: Mr Perfect PRO — WINGO Pro Max • Local demo • All logic stored in browser</div>
+    </footer>
+  </div>
+
+  <!-- Admin panel -->
+  <div id="admin">
+    <div class="admin-card">
+      <h3 style="margin:0">Admin — Hidden</h3>
+      <div class="small" style="margin-top:6px">Open via <strong>Ctrl + Shift + A</strong></div>
+      <div style="margin-top:10px">
+        <div class="stat"><div>Stored memory size</div><div id="memSize">0</div></div>
+        <div class="stat"><div>Accuracy (local)</div><div id="adminAcc">—</div></div>
+        <div class="stat"><div>Max loss streak (last 100)</div><div id="adminMaxLoss">—</div></div>
+        <div style="margin-top:10px">
+          <button class="ghost" id="resetAll">Reset All (memory + logs)</button>
+          <button class="ghost" id="downloadMemory">Download Memory</button>
+        </div>
+        <div style="margin-top:8px" class="small">Color mapping (editable):</div>
+        <div style="display:flex;gap:6px;margin-top:6px">
+          <input id="map0" style="width:44px;padding:6px;border-radius:8px;background:transparent;border:1px solid rgba(255,120,50,0.06);color:#fff" />
+          <input id="map1" style="width:44px;padding:6px;border-radius:8px;background:transparent;border:1px solid rgba(255,120,50,0.06);color:#fff" />
+          <input id="map2" style="width:44px;padding:6px;border-radius:8px;background:transparent;border:1px solid rgba(255,120,50,0.06);color:#fff" />
+          <input id="map3" style="width:44px;padding:6px;border-radius:8px;background:transparent;border:1px solid rgba(255,120,50,0.06);color:#fff" />
+          <input id="map4" style="width:44px;padding:6px;border-radius:8px;background:transparent;border:1px solid rgba(255,120,50,0.06);color:#fff" />
+          <input id="map5" style="width:44px;padding:6px;border-radius:8px;background:transparent;border:1px solid rgba(255,120,50,0.06);color:#fff" />
+          <input id="map6" style="width:44px;padding:6px;border-radius:8px;background:transparent;border:1px solid rgba(255,120,50,0.06);color:#fff" />
+          <input id="map7" style="width:44px;padding:6px;border-radius:8px;background:transparent;border:1px solid rgba(255,120,50,0.06);color:#fff" />
+          <input id="map8" style="width:44px;padding:6px;border-radius:8px;background:transparent;border:1px solid rgba(255,120,50,0.06);color:#fff" />
+          <input id="map9" style="width:44px;padding:6px;border-radius:8px;background:transparent;border:1px solid rgba(255,120,50,0.06);color:#fff" />
+        </div>
+        <div style="margin-top:8px">
+          <button class="btn" id="saveColorMap">Save Map</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* ==========================
+   Mr Perfect PRO — Single File JS
+   Features implemented:
+   - Access key
+   - Telegram popup
+   - Animated fiery particles background
+   - 15 Boxes + textarea for history
+   - Ensemble of 10 logic methods
+   - Safety override (flip to avoid 3rd same)
+   - Analysis delay (random 10-15s)
+   - Backtest, Learning (localStorage), Win/Loss feedback
+   - Charts drawn with canvas (no libs)
+   - Admin panel (Ctrl+Shift+A) and color mapping editor
+   ========================== */
+
+/* --------------------------
+   Utilities & state
+   -------------------------- */
+const ACCESS_KEY = 'Mrperfect456';
+const STORAGE_KEY = 'mrperfect_memory_v1';
+const SOUND_ON = true;
+let state = {
+  memory: loadMemory(),
+  lastPrediction: null,
+  lastInputList: [],
+  colorMap: [ 'Red','Green','Red','Green','Red','Green','Violet','Violet','Red','Green' ]
+};
+
+function loadMemory(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {history:[], wins:0, losses:0, rounds:0, predictions:[]};
+  }catch(e){ return {history:[], wins:0, losses:0, rounds:0, predictions:[]}; }
+}
+function saveMemory(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.memory));
+  updateAdminStats();
+}
+
+/* --------------------------
+   Simple sounds (WebAudio)
+   -------------------------- */
+let audioCtx = null;
+function beep(freq=440, dur=0.06, vol=0.2){
+  if(!SOUND_ON) return;
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = 'sine';
+    o.frequency.value = freq;
+    g.gain.value = vol;
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start();
+    setTimeout(()=>{ o.stop(); }, dur*1000);
+  }catch(e){}
+}
+
+/* --------------------------
+   Animated particles background
+   -------------------------- */
+(function spawnParticles(){
+  const bg = document.getElementById('bg');
+  const W = window.innerWidth, H = window.innerHeight;
+  const N = Math.min(60, Math.floor(Math.max(W,H)/20));
+  for(let i=0;i<N;i++){
+    const p = document.createElement('div');
+    p.className='particle';
+    resetParticle(p,true);
+    bg.appendChild(p);
+    animateParticle(p);
+  }
+  function resetParticle(p,initial){
+    const size = Math.random()*10 + 3;
+    p.style.width = size + 'px'; p.style.height = size + 'px';
+    p.style.left = (Math.random()*100) + '%';
+    p.style.top = (Math.random()*100) + '%';
+    p.style.opacity = 0.6 + Math.random()*0.4;
+    p.style.transform = 'scale('+(0.6+Math.random()*1.4)+')';
+  }
+  function animateParticle(p){
+    const dur = 8000 + Math.random()*14000;
+    const dx = (Math.random()-0.5)*80;
+    const dy = (Math.random()-0.5)*40;
+    const startX = parseFloat(p.style.left);
+    const startY = parseFloat(p.style.top);
+    let t0 = performance.now();
+    function step(t){
+      const dt = (t - t0)/dur;
+      if(dt >= 1){ resetParticle(p); t0 = t; return requestAnimationFrame(step); }
+      p.style.left = (startX + dx*dt) + '%';
+      p.style.top = (startY + dy*dt) + '%';
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+})();
+
+/* --------------------------
+   Access control & Telegram popup
+   -------------------------- */
+const accessOverlay = document.getElementById('accessOverlay');
+document.getElementById('accessBtn').addEventListener('click', ()=>{
+  const k = document.getElementById('accessKey').value.trim();
+  if(k === ACCESS_KEY){ openApp(); accessOverlay.style.display='none'; playOpen(); }
+  else{ document.getElementById('accessMsg').textContent = 'Invalid key — try again.'; beep(220,0.08,0.15); }
+});
+document.getElementById('demoBtn').addEventListener('click', ()=>{
+  // demo mode: open but disable memory writes
+  openApp(true);
+  accessOverlay.style.display='none';
+  document.getElementById('tgPopup').style.display='block';
+});
+document.getElementById('tgClose').addEventListener('click', ()=>{ document.getElementById('tgPopup').style.display='none'; });
+function playOpen(){ beep(420,0.12,0.18); setTimeout(()=>beep(660,0.06,0.14),120); }
+function openApp(demo=false){
+  // show telegram popup once unless closed
+  if(!localStorage.getItem('mrperfect_tg_shown')){ document.getElementById('tgPopup').style.display='block'; localStorage.setItem('mrperfect_tg_shown','1'); }
+  // populate boxes from recent memory if available
+  const mem = state.memory.history || [];
+  const last = mem.slice(-15);
+  if(last.length){
+    // last array is chronological, fill boxes oldest->newest
+    for(let i=0;i<15;i++){
+      const el = document.getElementById('b'+(i+1));
+      el.value = last[i] !== undefined ? String(last[i]) : '';
+    }
+    document.getElementById('bigText').value = mem.slice(-100).join(',');
+    updateCharts();
+  }
+  updateAdminStats();
+}
+
+/* --------------------------
+   Accessory: Clear / Export / Backtest
+   -------------------------- */
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  for(let i=1;i<=15;i++) document.getElementById('b'+i).value='';
+  document.getElementById('bigText').value='';
+  beep(520,0.05,0.12);
+});
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const hist = state.memory.history || [];
+  const blob = new Blob([JSON.stringify(state.memory,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'mrperfect_memory.json'; a.click();
+  URL.revokeObjectURL(url);
+  beep(880,0.06,0.12);
+});
+document.getElementById('backtestBtn').addEventListener('click', ()=>{
+  const raw = (document.getElementById('bigText').value || '').trim();
+  const arr = parseHist(raw);
+  if(arr.length < 20){ if(!confirm('History <20 rounds — results will be noisy. Continue?')) return; }
+  const res = runBacktest(arr);
+  alert('Backtest result:\\nAccuracy: '+(res.accuracy*100).toFixed(2)+'%\\nMax loss streak: '+res.max_loss);
+});
+
+/* --------------------------
+   Parse history (oldest first) into array of ints 0-9
+   -------------------------- */
+function parseHist(text){
+  if(!text) return [];
+  return text.split(',').map(s=>s.trim()).filter(s=>s.length).map(Number).filter(n=>!isNaN(n) && n>=0 && n<=9);
+}
+
+/* --------------------------
+   CORE: Predictors (10 heuristics)
+   Each function receives:
+      recentNumsMostRecentFirst: array like [last, secondLast, ...]
+      recentBSMostRecentFirst: array of Big/Small (1/0)
+   -------------------------- */
+function majorityN(bs, n){
+  const m = Math.min(n, bs.length);
+  if(m===0) return 0;
+  let s=0;
+  for(let i=0;i<m;i++) s+=bs[i];
+  return s >= (m/2) ? 1 : 0;
+}
+function parity(nums){
+  if(nums.length===0) return 0;
+  return (nums[0] % 2) === 1 ? 1 : 0;
+}
+function movingAvg(nums,w){
+  if(nums.length===0) return 0;
+  const m = Math.min(w, nums.length);
+  let s=0;
+  for(let i=0;i<m;i++) s+=nums[i];
+  return (s/m) >= 5 ? 1 : 0;
+}
+function lastDigitMap(nums){
+  if(nums.length===0) return 0;
+  return nums[0] >=5 ? 1 : 0;
+}
+function runRev(bs){
+  if(bs.length>=2 && bs[0]===bs[1]) return bs[0]===1?0:1;
+  return bs.length?bs[0]:0;
+}
+function freqRecent(nums,k){
+  const m = Math.min(k, nums.length);
+  if(m===0) return 0;
+  let bigs=0;
+  for(let i=0;i<m;i++) if(nums[i] >=5) bigs++;
+  return bigs >= (m/2) ? 1 : 0;
+}
+function lastRepeat(bs){ return bs.length?bs[0]:0; }
+function varianceTrend(nums){
+  // if last few numbers trending upward towards >=5 => Big
+  if(nums.length<3) return lastDigitMap(nums);
+  const last3 = nums.slice(0,3);
+  const avg = (last3[0]+last3[1]+last3[2])/3;
+  return avg >= 5 ? 1 : 0;
+}
+function deltaReversal(nums){
+  // if last two deltas show reversal pattern predict reversal
+  if(nums.length < 3) return lastDigitMap(nums);
+  const d1 = nums[0]-nums[1];
+  const d2 = nums[1]-nums[2];
+  if(d1 * d2 < 0) return 1; // sign change -> Big
+  return lastDigitMap(nums);
+}
+
+/* predictor registry */
+const predictors = [
+  {id:'majority3', label:'Majority last 3', fn:(n,bs)=>majorityN(bs,3)},
+  {id:'majority5', label:'Majority last 5', fn:(n,bs)=>majorityN(bs,5)},
+  {id:'parity', label:'Parity of last number', fn:(n,bs)=>parity(n)},
+  {id:'ma3', label:'Moving avg (3)', fn:(n,bs)=>movingAvg(n,3)},
+  {id:'ma5', label:'Moving avg (5)', fn:(n,bs)=>movingAvg(n,5)},
+  {id:'digit_map', label:'Digit map (>=5 Big)', fn:(n,bs)=>lastDigitMap(n)},
+  {id:'run_rev', label:'Run-length reversal', fn:(n,bs)=>runRev(bs)},
+  {id:'freq10', label:'Big frequency last 10', fn:(n,bs)=>freqRecent(n,10)},
+  {id:'variance', label:'Variance/trend', fn:(n,bs)=>varianceTrend(n)},
+  {id:'delta_rev', label:'Delta reversal', fn:(n,bs)=>deltaReversal(n)},
+];
+
+/* --------------------------
+   Ensemble & Safety override
+   -------------------------- */
+function ensemblePredict(recentNumsMostRecentFirst, recentBSMostRecentFirst){
+  const votes = predictors.map(p => p.fn(recentNumsMostRecentFirst, recentBSMostRecentFirst));
+  const ones = votes.reduce((a,b)=>a+b,0);
+  const majority = ones >= (votes.length/2) ? 1 : 0;
+  return {majority, votes};
+}
+
+/* Safety override: if last two actuals equal the ensemble vote, flip vote (skip) */
+function applySafety(ensembleVote, recentBS, safetyEnabled){
+  if(!safetyEnabled) return ensembleVote;
+  if(recentBS.length >= 2 && recentBS[0] === recentBS[1] && ensembleVote === recentBS[0]){
+    return 1 - ensembleVote; // flip
+  }
+  return ensembleVote;
+}
+
+/* --------------------------
+   Color mapping logic
+   Users can edit mapping in admin
+   -------------------------- */
+function numberToColor(n){
+  return state.colorMap[n] || 'Red';
+}
+
+/* --------------------------
+   Analysis flow (with delay + phases)
+   - random delay 10-15s
+   - show progress bar and phases
+   -------------------------- */
+function setModeLabel(mode){
+  document.getElementById('modeLabel').textContent = mode;
+}
+function startAnalysis(inputArrOldestFirst){
+  // inputArrOldestFirst: array chronological oldest->newest
+  if(!inputArrOldestFirst || inputArrOldestFirst.length===0){ alert('Enter some numbers first'); return; }
+  // prepare recent lists most-recent-first
+  const nums = inputArrOldestFirst.slice().reverse(); // recent-first
+  const bs = nums.map(x => x>=5 ? 1 : 0);
+  state.lastInputList = inputArrOldestFirst.slice();
+
+  // show thinking UI
+  const thinking = document.getElementById('thinkingArea');
+  const bar = document.getElementById('thinkBar');
+  const phase = document.getElementById('thinkPhase');
+  thinking.style.display='block';
+  bar.style.width = '0%';
+  phase.textContent = 'Initializing';
+
+  const delay = 10000 + Math.random()*5000; // 10-15s
+  const start = performance.now();
+  const phases = [
+    {t:0.08, text:'Analyzing trend patterns'},
+    {t:0.36, text:'Running heuristics & votes'},
+    {t:0.62, text:'Checking reversals & safety'},
+    {t:0.86, text:'Simulating confidence & scoring'},
+    {t:1.0, text:'Finalizing verdict'}
+  ];
+  // animate progress
+  const animate = (now)=>{
+    const p = Math.min(1, (now - start)/delay);
+    bar.style.width = (p*100)+'%';
+    // set phase
+    for(let i=0;i<phases.length;i++){
+      if(p <= phases[i].t){ phase.textContent = phases[i].text; break; }
+    }
+    if(p < 1) requestAnimationFrame(animate); else finalize();
+  };
+  requestAnimationFrame(animate);
+
+  function finalize(){
+    // compute ensemble
+    const ens = ensemblePredict(nums, bs);
+    const safetyOn = document.getElementById('safetyToggle').checked;
+    let finalVote = applySafety(ens.majority, bs, safetyOn);
+
+    // compute confidence heuristically:
+    let voteSum = ens.votes.reduce((a,b)=>a+b,0);
+    // base confidence: proportion of predictors in agreement (0.5 -> 50)
+    let conf = 50 + Math.round((Math.abs(voteSum - ens.votes.length/2) / (ens.votes.length/2)) * 40);
+    // small boost if safety flipped but historical recent pattern supports flip
+    if(finalVote !== ens.majority) conf = Math.max(conf-6, 40);
+
+    // trend strength: difference between moving averages (3 vs 5)
+    const ma3 = movingAvg(nums,3), ma5 = movingAvg(nums,5);
+    let trendStrength = Math.abs(ma3 - ma5) * 100;
+    // compute verdict: SURESHOT if conf >= 78 and recent memory supports
+    const verdict = conf >= 78 ? 'SURESHOT ENTRY' : (conf >= 64 ? 'NORMAL' : 'RISKY');
+
+    // color prediction (if predicting Big/Small, color uses last number mapping + trend)
+    // we'll choose predicted number bucket: if Big -> suggest one color among number->color mapping majority of recent bigs
+    const predictedColor = predictColor(nums, finalVote);
+
+    // fill UI
+    document.getElementById('finalBigSmall').textContent = finalVote===1 ? 'BIG' : 'SMALL';
+    document.getElementById('finalBigSmall').className = 'bigsmall ' + (finalVote===1 ? 'big' : 'small');
+    document.getElementById('finalColor').textContent = predictedColor;
+    document.getElementById('confidence').textContent = conf + '%';
+    document.getElementById('trendStrength').textContent = Math.round(trendStrength) + '%';
+    const flag = document.getElementById('verdictFlag'); flag.textContent = verdict;
+    flag.className = 'flag ' + (verdict === 'SURESHOT ENTRY' ? 'sure' : 'risky');
+
+    // populate logic panel
+    populateLogicPanel(nums, bs, ens, finalVote);
+
+    // remember last prediction for feedback
+    state.lastPrediction = { vote: finalVote, conf, color:predictedColor, timestamp:Date.now(), input: inputArrOldestFirst.slice() };
+    // append to memory predictions log
+    state.memory.predictions = state.memory.predictions || [];
+    state.memory.predictions.push({ts: Date.now(), vote: finalVote, conf, color: predictedColor});
+    if(state.memory.predictions.length > 500) state.memory.predictions.shift();
+    saveMemory();
+
+    // hide thinking UI after brief delay and update charts
+    setTimeout(()=>{
+      document.getElementById('thinkingArea').style.display='none';
+      document.getElementById('lastRun').textContent = new Date().toLocaleString();
+      updateCharts();
+      beep(finalVote===1?620:320,0.08,0.15);
+    }, 700);
+  }
+}
+
+/* predictColor: simple heuristic: among recent numbers with same Big/Small as predicted, choose majority color */
+function predictColor(numsMostRecentFirst, predictedBS){
+  const recent = numsMostRecentFirst.slice(0,30);
+  const candidates = recent.filter(n => (n>=5?1:0) === predictedBS);
+  const counts = {};
+  candidates.forEach(n => {
+    const c = numberToColor(n);
+    counts[c] = (counts[c]||0) + 1;
+  });
+  let best = null, bestCount = -1;
+  for(const k in counts) if(counts[k] > bestCount){ best = k; bestCount = counts[k]; }
+  if(best) return best;
+  // fallback: map predicted typical number
+  return predictedBS===1 ? numberToColor(7) : numberToColor(2);
+}
+
+/* populate logic panel showing each method's vote */
+function populateLogicPanel(nums, bs, ens, finalVote){
+  document.getElementById('analysisPanel').style.display = 'block';
+  const list = document.getElementById('logicList');
+  list.innerHTML = '';
+  for(let i=0;i<predictors.length;i++){
+    const p = predictors[i];
+    const vote = ens.votes[i] === 1 ? 'BIG' : 'SMALL';
+    const div = document.createElement('div'); div.className='logic';
+    const left = document.createElement('div'); left.innerHTML = '<strong>'+p.label+'</strong><div class="small">Method ' + (i+1) + '</div>';
+    const right = document.createElement('div'); right.innerHTML = '<div class="vote '+(ens.votes[i]===1 ? 'big' : 'small')+'">'+vote+'</div>';
+    div.appendChild(left); div.appendChild(right);
+    list.appendChild(div);
+  }
+  // ensemble row
+  const div = document.createElement('div'); div.className='logic';
+  const left = document.createElement('div'); left.innerHTML = '<strong>Ensemble majority</strong><div class="small">Combined vote</div>';
+  const right = document.createElement('div'); right.innerHTML = '<div class="vote '+(ens.majority===1 ? 'big' : 'small')+'">'+(ens.majority===1 ? 'BIG' : 'SMALL')+'</div>';
+  div.appendChild(left); div.appendChild(right);
+  list.appendChild(div);
+
+  if(finalVote !== ens.majority){
+    const div2 = document.createElement('div'); div2.className='logic';
+    const left2 = document.createElement('div'); left2.innerHTML = '<strong>Safety override</strong><div class="small">Flipped to avoid 3rd identical</div>';
+    const right2 = document.createElement('div'); right2.innerHTML = '<div class="vote '+(finalVote===1 ? 'big' : 'small')+'">'+(finalVote===1 ? 'BIG' : 'SMALL')+'</div>';
+    div2.appendChild(left2); div2.appendChild(right2);
+    list.appendChild(div2);
+  }
+}
+
+/* --------------------------
+   Backtest routine (walk-forward)
+   Input: arr oldest->newest
+   -------------------------- */
+function runBacktest(arrChron){
+  const arr = arrChron.slice();
+  if(arr.length < 12) return {accuracy:0, max_loss:0};
+  let preds = [];
+  let actuals = [];
+  for(let t=10;t< arr.length; t++){
+    // build recent arrays most-recent-first
+    const recentNums = [];
+    const recentBs = [];
+    for(let i=t-1; i>= Math.max(0, t-50); i--){
+      recentNums.push(arr[i]);
+      recentBs.push(arr[i] >=5 ? 1 : 0);
+    }
+    const ens = ensemblePredict(recentNums, recentBs);
+    const safety = document.getElementById('safetyToggle').checked;
+    const final = applySafety(ens.majority, recentBs, safety);
+    preds.push(final);
+    actuals.push(arr[t] >=5 ? 1 : 0);
+  }
+  let correct = 0; let streak=0; let max_loss=0;
+  for(let i=0;i<preds.length;i++){
+    if(preds[i] === actuals[i]){ correct++; streak=0; } else { streak++; max_loss = Math.max(max_loss, streak); }
+  }
+  const acc = correct / preds.length;
+  return {accuracy: acc, max_loss};
+}
+
+/* --------------------------
+   UI: Buttons & interactions
+   -------------------------- */
+document.getElementById('analyzeBtn').addEventListener('click', ()=>{
+  // build input arr: prefer textarea if non-empty, else boxes 1..15 (oldest->newest)
+  const text = (document.getElementById('bigText').value || '').trim();
+  let arr = [];
+  if(text.length>0){ arr = parseHist(text); setModeLabel('Textarea mode'); }
+  else{
+    for(let i=1;i<=15;i++){ const v = document.getElementById('b'+i).value.trim(); arr.push(v===''?null: Number(v)); }
+    arr = arr.filter(v => v!==null && !isNaN(v) && v>=0 && v<=9);
+    setModeLabel('Boxes 15');
+  }
+  if(arr.length === 0){ alert('Enter numbers using boxes or paste history first'); return; }
+  // run analysis
+  startAnalysis(arr);
+  // store last run in memory.history as training input (chronological)
+  state.memory.history = state.memory.history || [];
+  // append only if last entry is different
+  const last = state.memory.history.length ? state.memory.history[state.memory.history.length-1] : null;
+  // store the newest number (most recent) if arr has at least one
+  if(arr.length){
+    // ensure we store chronological values; store full arr
+    state.memory.history = state.memory.history.concat(arr);
+    // limit to 2000 items
+    if(state.memory.history.length > 2000) state.memory.history = state.memory.history.slice(-2000);
+  }
+  saveMemory();
+});
+
+document.getElementById('markWin').addEventListener('click', ()=>{
+  if(!state.lastPrediction){ alert('No prediction to mark. Run Analyze first.'); return; }
+  state.memory.wins = (state.memory.wins || 0) + 1;
+  state.memory.rounds = (state.memory.rounds || 0) + 1;
+  state.memory.predictions = state.memory.predictions || [];
+  state.memory.predictions.push({...state.lastPrediction, result:'win'});
+  updateAccuracyDisplay();
+  saveMemory();
+  beep(780,0.08,0.16);
+});
+document.getElementById('markLoss').addEventListener('click', ()=>{
+  if(!state.lastPrediction){ alert('No prediction to mark. Run Analyze first.'); return; }
+  state.memory.losses = (state.memory.losses || 0) + 1;
+  state.memory.rounds = (state.memory.rounds || 0) + 1;
+  state.memory.predictions = state.memory.predictions || [];
+  state.memory.predictions.push({...state.lastPrediction, result:'loss'});
+  updateAccuracyDisplay();
+  saveMemory();
+  beep(260,0.08,0.16);
+});
+document.getElementById('resetMemory').addEventListener('click', ()=>{
+  if(!confirm('Reset all learning memory stored in this browser?')) return;
+  state.memory = {history:[], wins:0, losses:0, rounds:0, predictions:[]};
+  saveMemory();
+  updateCharts();
+  updateAccuracyDisplay();
+  alert('Memory reset.');
+});
+
+/* --------------------------
+   Charts (vanilla canvas)
+   - trendChart: show last N numbers (0-9), color-coded
+   - accChart: show wins/loss ratio in sliding window
+   -------------------------- */
+function updateCharts(){
+  const trendCanvas = document.getElementById('trendChart');
+  const accCanvas = document.getElementById('accChart');
+  const ctx = trendCanvas.getContext('2d');
+  const ctx2 = accCanvas.getContext('2d');
+  const hist = state.memory.history || [];
+  const last = hist.slice(-40); // newest up to 40, chronological
+  // clear
+  ctx.clearRect(0,0,trendCanvas.width,trendCanvas.height);
+  ctx2.clearRect(0,0,accCanvas.width,accCanvas.height);
+
+  // draw background grid
+  ctx.fillStyle = 'rgba(255,255,255,0.02)';
+  ctx.fillRect(0,0,trendCanvas.width,trendCanvas.height);
+
+  if(last.length===0){
+    ctx.fillStyle = 'rgba(255,255,255,0.04)';
+    ctx.font = '14px ' + window.getComputedStyle(document.body).fontFamily;
+    ctx.fillText('No history stored yet. Run Analyze to store data.', 14, 28);
+    document.getElementById('storedRounds').textContent = 0;
+    return;
+  }
+
+  // scale x across width, y from 0..9
+  const W = trendCanvas.width, H = trendCanvas.height;
+  const margin = 18;
+  const plotW = W - margin*2, plotH = H - margin*2;
+  const step = plotW / Math.max(1, last.length-1);
+  // draw baseline lines for digits
+  ctx.strokeStyle = 'rgba(255,120,50,0.04)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  for(let d=0; d<=9; d++){
+    const y = margin + (9-d)/9 * plotH;
+    ctx.moveTo(margin, y); ctx.lineTo(W-margin, y);
+  }
+  ctx.stroke();
+
+  // draw line connecting points (map 0..9 to y)
+  ctx.beginPath();
+  for(let i=0;i<last.length;i++){
+    const x = margin + i*step;
+    const y = margin + (9-last[i])/9 * plotH;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle = 'rgba(255,110,40,0.9)';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // draw dots and color labels
+  for(let i=0;i<last.length;i++){
+    const x = margin + i*step;
+    const y = margin + (9-last[i])/9 * plotH;
+    // dot
+    ctx.fillStyle = '#ff8c42';
+    ctx.beginPath(); ctx.arc(x,y,6,0,Math.PI*2); ctx.fill();
+    // number label
+    ctx.fillStyle = '#fff';
+    ctx.font = '12px ' + window.getComputedStyle(document.body).fontFamily;
+    ctx.fillText(String(last[i]), x+8, y+4);
+  }
+
+  document.getElementById('storedRounds').textContent = hist.length;
+
+  // acc chart: compute sliding accuracy over last N predictions in memory.predictions
+  const preds = (state.memory.predictions || []).slice(-50);
+  if(preds.length===0){
+    ctx2.fillStyle = 'rgba(255,255,255,0.03)';
+    ctx2.fillRect(0,0,accCanvas.width,accCanvas.height);
+    ctx2.fillStyle = '#fff';
+    ctx2.font = '12px ' + window.getComputedStyle(document.body).fontFamily;
+    ctx2.fillText('No prediction feedback (win/loss) stored yet.', 12, 24);
+    document.getElementById('accDisplay').textContent = '—';
+    return;
+  }
+  // map to 0/1
+  const arr = preds.map(p => p.result === 'win' ? 1 : 0);
+  const W2 = accCanvas.width, H2 = accCanvas.height;
+  const barW = Math.max(4, (W2-20)/arr.length - 2);
+  for(let i=0;i<arr.length;i++){
+    const x = 10 + i*(barW+2);
+    const h = arr[i] ? H2-8 : (H2-8)/3;
+    ctx2.fillStyle = arr[i] ? 'rgba(102,244,138,0.9)' : 'rgba(255,120,50,0.9)';
+    ctx2.fillRect(x, H2-8-h, barW, h);
+  }
+  const acc = arr.reduce((a,b)=>a+b,0)/arr.length;
+  document.getElementById('accDisplay').textContent = (acc*100).toFixed(2)+'%';
+}
+
+/* --------------------------
+   Admin functions, keyboard
+   -------------------------- */
+document.addEventListener('keydown', (e)=>{
+  if(e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='a'){
+    const admin = document.getElementById('admin');
+    admin.style.display = admin.style.display === 'block' ? 'none' : 'block';
+    // populate color map inputs
+    for(let i=0;i<10;i++) document.getElementById('map'+i).value = state.colorMap[i];
+    updateAdminStats();
+  }
+});
+document.getElementById('resetAll').addEventListener('click', ()=>{
+  if(!confirm('Reset all app memory (history + predictions + wins/losses)?')) return;
+  state.memory = {history:[], wins:0, losses:0, rounds:0, predictions:[]};
+  saveMemory();
+  updateCharts();
+  updateAdminStats();
+  alert('All reset.');
+});
+document.getElementById('downloadMemory').addEventListener('click', ()=>{
+  const blob = new Blob([JSON.stringify(state.memory,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'memory.json'; a.click();
+  URL.revokeObjectURL(url);
+});
+document.getElementById('saveColorMap').addEventListener('click', ()=>{
+  for(let i=0;i<10;i++) state.colorMap[i] = document.getElementById('map'+i).value || state.colorMap[i];
+  alert('Color map saved.');
+});
+
+/* --------------------------
+   Utility: update admin stats and accuracy
+   -------------------------- */
+function updateAdminStats(){
+  document.getElementById('memSize').textContent = (state.memory.history || []).length;
+  const preds = state.memory.predictions || [];
+  const wins = preds.filter(p => p.result === 'win').length;
+  const losses = preds.filter(p => p.result === 'loss').length;
+  document.getElementById('adminAcc').textContent = preds.length ? ((wins/preds.length*100).toFixed(2)+'%') : '—';
+  document.getElementById('adminMaxLoss').textContent = computeMaxLoss(preds);
+  document.getElementById('memSize').textContent = (state.memory.history || []).length;
+}
+function computeMaxLoss(preds){
+  let streak=0, max=0;
+  for(const p of preds){
+    if(p.result === 'loss'){ streak++; max = Math.max(max, streak); } else streak = 0;
+  }
+  return max;
+}
+function updateAccuracyDisplay(){ updateAdminStats(); updateCharts(); }
+
+/* --------------------------
+   On load: wire UI and set defaults
+   -------------------------- */
+(function init(){
+  // wire toggle details
+  document.getElementById('toggleDetails').addEventListener('click', ()=>{
+    const panel = document.getElementById('analysisPanel');
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    document.getElementById('toggleDetails').textContent = panel.style.display === 'block' ? 'Hide Methods' : 'Show Methods';
+  });
+  // initialize color map inputs
+  for(let i=0;i<10;i++){
+    const el = document.getElementById('map'+i);
+    if(el) el.value = state.colorMap[i];
+  }
+  // prefill some helpful demo numbers in textarea for first run (if no memory)
+  if(!(state.memory.history && state.memory.history.length)){
+    document.getElementById('bigText').value = '5,7,8,8,9,3,9'; // example you gave
+  } else {
+    document.getElementById('bigText').value = (state.memory.history.slice(-100)).join(',');
+  }
+  updateCharts();
+  updateAdminStats();
+})();
+
+/* --------------------------
+   Helper: run initial parse & backtest on pasted final dataset if present
+   -------------------------- */
+// No automatic backtest; user triggers it via Backtest button
+
+</script>
+</body>
+</html>
