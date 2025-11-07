@@ -5,636 +5,133 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>GX TRADER MOD // UCHIHA CORE V17.0</title>
 <style>
-    /* ====== THEME: Uchiha Core - Pixel Perfect Recreation (V17.0) ====== */
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=VT323&display=swap');
-    
-    :root{
-        --bg: #000000; /* Pure Black */
-        --panel: rgba(1, 1, 30, 0.6); /* Deep Blue Transparent */
-        --neon-blue: #00FFFF; /* Primary Cyan Neon */
-        --neon-red: #FF00FF; /* Primary Magenta/Pink Neon */
-        --accent-red: #FF4500; /* Orange-Red */
-        --text-color: #00FFFF;
-        --glow-blue: 0 0 10px #00FFFF, 0 0 20px rgba(0,255,255,0.4); 
-        --glow-red: 0 0 10px #FF00FF, 0 0 20px rgba(255,0,255,0.4); 
-        --success: #33FF33; 
-        --danger: #FF3333; 
-        --mono: 'VT323', monospace; 
-        --header-font: 'Orbitron', sans-serif;
-    }
-    
-    /* Global Styles & Background */
-    *{box-sizing:border-box; transition: all 0.2s ease-out;}
-    html,body{
-        height:100%;
-        margin:0;
-        background-color: var(--bg);
-        color: var(--text-color);
-        font-family: Arial, sans-serif;
-        padding: 0;
-        overflow-x: hidden;
-        background-image: url('background.png'); 
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }
-    body::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.85); /* Dark filter */
-        z-index: -1;
-    }
-
-    .container{ max-width: 450px; margin:0 auto; padding:10px 10px 50px; position: relative; z-index: 10;}
-    
-    .header-box {
-        border: 2px solid var(--neon-blue);
-        box-shadow: var(--glow-blue);
-        background: var(--panel);
-        padding: 5px;
-        margin-bottom: 10px;
-    }
-    .title-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 2px solid var(--neon-red);
-        padding-bottom: 5px;
-        margin-bottom: 5px;
-    }
-    .title-row h1 {
-        margin: 0;
-        font-size: 1.2em;
-        font-family: var(--header-font);
-        text-shadow: 0 0 5px var(--neon-red);
-        color: var(--neon-red);
-        letter-spacing: 2px;
-    }
-    .profile-section {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .profile-pic {
-        width: 40px; height: 40px; border-radius: 5px; background: white;
-        border: 2px solid var(--neon-blue);
-    }
-    .side-buttons {
-        position: absolute;
-        top: 60px; left: 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-    .side-buttons button {
-        width: 60px;
-        padding: 6px 0;
-        background: var(--panel);
-        border: 2px solid var(--neon-blue);
-        color: var(--neon-blue);
-        font-weight: bold;
-        border-radius: 4px;
-        box-shadow: var(--glow-blue);
-        cursor: pointer;
-        font-size: 10px;
-    }
-
-    .bigg-output {
-        text-align: center;
-        padding: 15px 0;
-        background: var(--panel);
-        border: 2px solid var(--neon-red);
-        box-shadow: var(--glow-red);
-        margin-bottom: 15px;
-    }
-    #bsValue {
-        font-size: 3.5em; 
-        font-family: var(--header-font);
-        font-weight: 700;
-        text-shadow: var(--glow-red);
-        color: white;
-        margin-bottom: 5px;
-    }
-    .server-status {
-        font-size: 0.9em;
-        font-family: var(--mono);
-        color: var(--success);
-        text-shadow: 0 0 3px var(--success);
-    }
-
-    .detail-section {
-        padding: 10px;
-        border: 2px solid var(--neon-blue);
-        box-shadow: var(--glow-blue);
-        background: var(--panel);
-        margin-bottom: 15px;
-    }
-    .detail-title {
-        font-size: 1.2em;
-        font-family: var(--header-font);
-        color: var(--neon-red);
-        text-align: center;
-        margin-bottom: 8px;
-        letter-spacing: 1px;
-    }
-    .detail-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 6px 10px;
-        border-bottom: 1px dashed rgba(0,255,255,0.2);
-        font-family: var(--mono);
-        font-size: 0.9em;
-    }
-    .detail-item:last-child { border-bottom: none; }
-    .detail-item .value { color: white; text-shadow: 0 0 5px white; }
-
-    .injector-btn-container {
-        text-align: center;
-        padding: 15px 0;
-    }
-    .injector-btn {
-        background: linear-gradient(0deg, #00FFFF, #00C8C8);
-        color: black;
-        border: 4px solid #00C8C8;
-        padding: 10px 30px;
-        font-size: 1.2em;
-        font-weight: bold;
-        text-transform: uppercase;
-        border-radius: 50px;
-        cursor: pointer;
-        box-shadow: 0 0 15px var(--neon-blue), inset 0 0 10px white;
-        font-family: var(--header-font);
-        clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
-    }
-
-    .log-area {
-        background: rgba(0, 0, 0, 0.4);
-        border: 1px solid var(--neon-blue);
-        padding: 10px;
-        max-height: 200px;
-        overflow-y: auto;
-        font-family: var(--mono);
-        font-size: 0.8em;
-        color: var(--success);
-        white-space: pre-wrap;
-    }
-    .log-line {
-        margin: 0;
-        line-height: 1.4;
-        text-shadow: 0 0 1px var(--success);
-    }
-    
-    #itachiOverlay {
-        position: fixed; 
-        top: 0; left: 0; 
-        width: 100%; height: 100%; 
-        background: rgba(0,0,0,0.98); 
-        z-index: 10000; 
-        display: none; 
-        justify-content: center; 
-        align-items: center; 
-        flex-direction: column; 
-        font-family: var(--header-font);
-        text-align: center;
-        border: 5px solid var(--neon-red);
-        box-shadow: 0 0 50px var(--neon-red);
-    }
-    #uchihaVideo {
-        width: 100%; 
-        max-width: 400px; 
-        border: 5px solid var(--neon-blue);
-        box-shadow: 0 0 30px var(--neon-blue);
-    }
-    #voiceAlertText {
-        padding: 15px 30px;
-        border: 2px solid var(--neon-red);
-        background: rgba(255,0,255,0.1);
-        color: white;
-        font-size: 1.4em;
-        text-shadow: 0 0 10px var(--neon-red);
-        margin-top: 20px;
-    }
-    
-    @keyframes shake {
-      0%, 100% { transform: translate(0, 0); }
-      20%, 60% { transform: translate(-4px, 0); }
-      40%, 80% { transform: translate(4px, 0); }
-    }
-    .amaterasu-shake-active {
-        animation: shake 0.1s infinite;
-    }
-
-    .input-hidden { display: none; }
-    
-    .footer-panel {
-        background: var(--panel);
-        border: 2px solid var(--neon-blue);
-        box-shadow: var(--glow-blue);
-        padding: 10px;
-        text-align: center;
-        margin-top: 15px;
-    }
-
-    /* Modal (free trial / key) */
-    #keyModal {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 20000;
-        background: rgba(0,0,0,0.7);
-    }
-    #keyModal .box {
-        width: 92%;
-        max-width: 420px;
-        background: var(--panel);
-        border: 2px solid var(--neon-blue);
-        padding: 16px;
-        text-align: center;
-        box-shadow: var(--glow-blue);
-    }
-    #keyModal h2 { margin: 0 0 10px 0; color: var(--neon-red); font-family: var(--header-font); }
-    #keyModal p { font-family: var(--mono); color: white; font-size: 0.95em; }
-    #keyModal input { width: 100%; padding: 8px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color: white; }
-    .modal-btn { margin-top: 10px; display:inline-block; padding:8px 12px; border-radius:6px; cursor:pointer; border:2px solid var(--neon-blue); background:transparent; color:var(--neon-blue); font-weight:bold; }
-    .modal-btn.primary { background: linear-gradient(0deg,#00FFFF,#00C8C8); color:black; border-color:#00C8C8; }
-    .modal-small { font-size:0.85em; color: rgba(255,255,255,0.7); margin-top:8px; }
-    .disabled { opacity:0.4; pointer-events:none; }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=VT323&display=swap');
+:root{
+--bg:#000;
+--panel:rgba(1,1,30,0.6);
+--neon-blue:#00FFFF;
+--neon-red:#FF00FF;
+--accent-red:#FF4500;
+--text-color:#00FFFF;
+--glow-blue:0 0 10px #00FFFF,0 0 20px rgba(0,255,255,0.4);
+--glow-red:0 0 10px #FF00FF,0 0 20px rgba(255,0,255,0.4);
+--success:#33FF33;
+--mono:'VT323',monospace;
+--header-font:'Orbitron',sans-serif;
+}
+*{box-sizing:border-box;transition:.2s ease-out all;}
+html,body{height:100%;margin:0;background-color:var(--bg);color:var(--text-color);font-family:Arial,sans-serif;overflow-x:hidden;background-image:url('background.png');background-size:cover;background-position:center;background-attachment:fixed;}
+body::before{content:'';position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:-1;}
+.container{max-width:450px;margin:0 auto;padding:10px 10px 50px;position:relative;z-index:10;}
+.header-box{border:2px solid var(--neon-blue);box-shadow:var(--glow-blue);background:var(--panel);padding:5px;margin-bottom:10px;}
+.title-row{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--neon-red);padding-bottom:5px;margin-bottom:5px;}
+.title-row h1{margin:0;font-size:1.2em;font-family:var(--header-font);text-shadow:0 0 5px var(--neon-red);color:var(--neon-red);}
+.profile-section{display:flex;align-items:center;gap:10px;}
+.profile-pic{width:40px;height:40px;border-radius:5px;background:white;border:2px solid var(--neon-blue);}
+.side-buttons{position:absolute;top:60px;left:15px;display:flex;flex-direction:column;gap:8px;}
+.side-buttons button{width:60px;padding:6px 0;background:var(--panel);border:2px solid var(--neon-blue);color:var(--neon-blue);font-weight:bold;border-radius:4px;box-shadow:var(--glow-blue);cursor:pointer;font-size:10px;}
+.bigg-output{text-align:center;padding:15px 0;background:var(--panel);border:2px solid var(--neon-red);box-shadow:var(--glow-red);margin-bottom:15px;}
+#bsValue{font-size:3.5em;font-family:var(--header-font);font-weight:700;text-shadow:var(--glow-red);color:white;}
+.server-status{font-size:.9em;font-family:var(--mono);color:var(--success);text-shadow:0 0 3px var(--success);}
+.detail-section{padding:10px;border:2px solid var(--neon-blue);box-shadow:var(--glow-blue);background:var(--panel);margin-bottom:15px;}
+.detail-title{font-size:1.2em;font-family:var(--header-font);color:var(--neon-red);text-align:center;margin-bottom:8px;}
+.detail-item{display:flex;justify-content:space-between;padding:6px 10px;border-bottom:1px dashed rgba(0,255,255,.2);font-family:var(--mono);font-size:.9em;}
+.injector-btn-container{text-align:center;padding:15px 0;}
+.injector-btn{background:linear-gradient(0deg,#00FFFF,#00C8C8);color:black;border:4px solid #00C8C8;padding:10px 30px;font-size:1.2em;font-weight:bold;text-transform:uppercase;border-radius:50px;cursor:pointer;box-shadow:0 0 15px var(--neon-blue),inset 0 0 10px white;font-family:var(--header-font);}
+.log-area{background:rgba(0,0,0,.4);border:1px solid var(--neon-blue);padding:10px;max-height:200px;overflow-y:auto;font-family:var(--mono);font-size:.8em;color:var(--success);}
+#itachiOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.98);z-index:10000;display:none;justify-content:center;align-items:center;flex-direction:column;font-family:var(--header-font);text-align:center;border:5px solid var(--neon-red);box-shadow:0 0 50px var(--neon-red);}
+#uchihaVideo{width:100%;max-width:400px;border:5px solid var(--neon-blue);box-shadow:0 0 30px var(--neon-blue);}
+#voiceAlertText{padding:15px 30px;border:2px solid var(--neon-red);background:rgba(255,0,255,.1);color:white;font-size:1.4em;text-shadow:0 0 10px var(--neon-red);margin-top:20px;}
+.footer-panel{background:var(--panel);border:2px solid var(--neon-blue);box-shadow:var(--glow-blue);padding:10px;text-align:center;margin-top:15px;}
+#keyModal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:20000;background:rgba(0,0,0,.7);}
+#keyModal .box{width:92%;max-width:420px;background:var(--panel);border:2px solid var(--neon-blue);padding:16px;text-align:center;box-shadow:var(--glow-blue);}
+#keyModal h2{margin:0 0 10px 0;color:var(--neon-red);font-family:var(--header-font);}
+#keyModal p{font-family:var(--mono);color:white;font-size:.95em;}
+#keyModal input{width:100%;padding:8px;margin-top:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:white;}
+.modal-btn{margin-top:10px;display:inline-block;padding:8px 12px;border-radius:6px;cursor:pointer;border:2px solid var(--neon-blue);background:transparent;color:var(--neon-blue);font-weight:bold;}
+.modal-btn.primary{background:linear-gradient(0deg,#00FFFF,#00C8C8);color:black;border-color:#00C8C8;}
+.disabled{opacity:.4;pointer-events:none;}
 </style>
 </head>
 <body id="mainBody">
 <audio id="uchihaVoice" src="uchiha.mp3" preload="auto"></audio>
 
-<!-- KEY / FREE-TRIAL MODAL -->
-<div id="keyModal" aria-hidden="false">
-    <div class="box">
-        <h2>FREE TRIAL / ENTER KEY</h2>
-        <p id="modalInfo">Choose free trial (one-time per device) or enter your access key to unlock predictions.</p>
-
-        <button id="freeTrialBtn" class="modal-btn primary">Use Free Trial (One Prediction)</button>
-        <div style="height:8px"></div>
-
-        <input id="accessKeyInput" placeholder="Enter access key (e.g. Uchiha456)" />
-        <div style="height:8px"></div>
-        <button id="submitKeyBtn" class="modal-btn">Enter Key</button>
-        <div style="height:8px"></div>
-
-        <button id="buyKeyBtn" class="modal-btn">Buy Key (Open Telegram)</button>
-
-        <div class="modal-small">Note: Free trial can be used only once on this device. After the trial, key required. Key: <strong>Uchiha456</strong></div>
-    </div>
+<!-- Key Modal -->
+<div id="keyModal">
+  <div class="box">
+    <h2>ACCESS REQUIRED</h2>
+    <p id="modalInfo">Free trial over. Enter key to continue.</p>
+    <input id="accessKeyInput" placeholder="Enter access key" />
+    <button id="submitKeyBtn" class="modal-btn primary">Enter Key</button>
+    <button id="buyKeyBtn" class="modal-btn">Buy Key (Telegram)</button>
+  </div>
 </div>
 
+<!-- Uchiha Intro -->
 <div id="itachiOverlay">
-    <video id="uchihaVideo" src="uchiha.mp4" autoplay muted loop></video>
-    <div id="voiceAlertText">INITIALIZING UCHIHA CORE...</div>
-    <button onclick="hideItachiOverlay();" style="margin-top: 20px; background: var(--accent-red); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">CONTINUE TO ANALYSIS</button>
+  <video id="uchihaVideo" src="uchiha.mp4" autoplay muted loop></video>
+  <div id="voiceAlertText">INITIALIZING UCHIHA CORE...</div>
+  <button onclick="hideItachiOverlay();" style="margin-top:20px;background:var(--accent-red);color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;">CONTINUE</button>
 </div>
 
 <div class="container">
-    <div class="header-box">
-        <div class="title-row">
-            <div class="profile-section">
-                <img src="https://via.placeholder.com/40" alt="User" class="profile-pic" />
-                <div style="font-size: 0.9em;">
-                    <span style="color: white; font-weight: bold;">GX TRADER MOD</span>
-                    <div style="font-size: 0.7em; color: var(--neon-blue);">GX TRADER HACK</div>
-                </div>
-            </div>
-            <h1>GX TRADER MOD</h1>
-            <div style="font-size: 0.8em; text-align: right; color: var(--neon-blue); font-family: var(--mono);">
-                202511011000050591<br>
-                00:04
-            </div>
-        </div>
-
-        <div class="side-buttons">
-            <button>JOIN TG</button>
-            <button>EXIT</button>
-            <button>HIDE</button>
-        </div>
-
-        <div class="bigg-output">
-            <div id="bsValue">---</div>
-            <div class="server-status">SERVER CONNECTED</div>
-        </div>
-
-        <div class="detail-title" style="margin-top: 5px; font-size: 1.4em;">CHECK RESULT</div>
+  <div class="header-box">
+    <div class="title-row">
+      <div class="profile-section">
+        <img src="https://via.placeholder.com/40" class="profile-pic" />
+        <div><span style="color:white;font-weight:bold;">GX TRADER MOD</span><div style="font-size:.7em;color:var(--neon-blue);">GX TRADER HACK</div></div>
+      </div>
+      <h1>GX TRADER MOD</h1>
     </div>
-    
-    <div class="detail-section">
-        <div class="detail-title">DETAIL :</div>
-        <div class="detail-item">
-            <span style="color: var(--neon-red);">DEVICE NAME :</span>
-            <span class="value">VIVO V2303</span>
-        </div>
-        <div class="detail-item">
-            <span style="color: var(--neon-red);">DEVICE VERSION:</span>
-            <span class="value">15</span>
-        </div>
-        <div class="detail-item">
-            <span style="color: var(--neon-red);">TYPE :</span>
-            <span class="value" id="predictionTypeDisplay">BIG / SMALL INJECTOR</span>
-        </div>
-        <div class="detail-item">
-            <span style="color: var(--neon-red);">MODE :</span>
-            <span class="value">WINGO 30 SECOND</span>
-        </div>
-        <div class="detail-item">
-            <span style="color: var(--neon-red);">SERVER :</span>
-            <span class="value">CONNECTED</span>
-        </div>
-        <div class="detail-item">
-            <span style="color: var(--neon-red);">MADE BY :</span>
-            <span class="value">GX TRADER MOD</span>
-        </div>
-    </div>
+    <div class="side-buttons"><button>JOIN TG</button><button>EXIT</button><button>HIDE</button></div>
+    <div class="bigg-output"><div id="bsValue">---</div><div class="server-status">SERVER CONNECTED</div></div>
+  </div>
 
-    <div class="injector-btn-container">
-        <button class="injector-btn" id="analyzeBtn" disabled>OPEN INJECTOR</button>
-    </div>
+  <div class="detail-section">
+    <div class="detail-title">DETAIL :</div>
+    <div class="detail-item"><span style="color:var(--neon-red);">DEVICE :</span><span>VIVO V2303</span></div>
+    <div class="detail-item"><span style="color:var(--neon-red);">MODE :</span><span>WINGO 30S</span></div>
+  </div>
 
-    <div class="input-hidden">
-        <textarea id="bigText" placeholder="e.g., 1,5,7,0,3,9,5,6,1,2,0,4,5,6,9,1,3,7,8, ..."></textarea>
-    </div>
+  <div class="injector-btn-container"><button class="injector-btn" id="analyzeBtn">OPEN INJECTOR</button></div>
 
-    <div class="footer-panel">
-        <div class="detail-title" style="color: var(--neon-red);">PROFESSIONAL CORE ANALYSIS LOGS</div>
-        <div class="log-area" id="analysisPanel">
-            <p class="log-line">:: UCHIHA CORE V17.0 ACTIVATED</p>
-            <p class="log-line">:: SHARINGAN SCANNING...</p>
-        </div>
-        <button id="toggleDetails" style="background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 5px 10px; margin-top: 10px; cursor: pointer;">Toggle Analysis Log</button>
-    </div>
-    
-    <div class="input-hidden">
-        <button id="markWin">Mark Win</button>
-        <button id="markLoss">Mark Loss</button>
-        <button id="resetMemory">Reset Learning</button>
-    </div>
-    
+  <textarea id="bigText" style="display:none;">5,7,8,9,4,1,6,2,8,0</textarea>
+
+  <div class="footer-panel">
+    <div class="detail-title" style="color:var(--neon-red);">PROFESSIONAL CORE LOGS</div>
+    <div class="log-area" id="analysisPanel"><p>:: UCHIHA CORE V17.0 ACTIVE</p></div>
+  </div>
 </div>
 
 <script>
-/* ==============================================================================
-   STATE MANAGEMENT & CORE LOGIC (Re-integrated from previous version)
-   ==============================================================================
-   Note: Added free-trial + key gating while preserving original prediction code.
-   ============================================================================== */
-const ACCESS_KEY_EXPECTED = 'Uchiha456'; // user's requested key
-const STORAGE_KEY = 'uchiha_core_memory_v17'; 
-const FREE_TRIAL_FLAG = 'uchiha_free_trial_used_v17'; // one-time per device
-const SESSION_KEY_UNLOCKED = 'uchiha_session_unlocked_v17'; // session unlock (not persisted to force key ask on reopen per request)
-
-let state = {
-  memory: loadMemory(),
-  lastPrediction: null,
-  colorMap: [ 'Red','Green','Red','Green','Red','Green','Violet','Violet','Red','Green' ]
+const _K='VWNoaWhhNDU2';const ACCESS_KEY_EXPECTED=atob(_K);
+const FREE_TRIAL_COUNT_KEY='uchiha_free_trial_count_v17';let freeCount=parseInt(localStorage.getItem(FREE_TRIAL_COUNT_KEY)||'0');
+function playVoice(){const a=document.getElementById('uchihaVoice');a.currentTime=0;a.play().catch(()=>{});}
+function showModal(){document.getElementById('keyModal').style.display='flex';}
+function hideModal(){document.getElementById('keyModal').style.display='none';}
+function triggerUchiha(){const o=document.getElementById('itachiOverlay'),v=document.getElementById('uchihaVideo');o.style.display='flex';v.currentTime=0;v.play();playVoice();}
+function hideItachiOverlay(){document.getElementById('itachiOverlay').style.display='none';document.getElementById('uchihaVideo').pause();document.getElementById('uchihaVoice').pause();}
+function parseHist(t){return t.split(',').map(Number).filter(n=>!isNaN(n));}
+function runPrediction(arr){const val=Math.random()>0.5?'BIGG':'SMALL';return{label:val,conf:(70+Math.random()*25).toFixed(1)};}
+async function analyze(){
+  if(freeCount>=3 && !sessionStorage.getItem('key_ok')){showModal();return;}
+  triggerUchiha();
+  await new Promise(r=>setTimeout(r,4000));
+  hideItachiOverlay();
+  const t=document.getElementById('bigText').value,a=parseHist(t);
+  const r=runPrediction(a);
+  document.getElementById('bsValue').textContent=r.label;
+  freeCount++;
+  localStorage.setItem(FREE_TRIAL_COUNT_KEY,freeCount);
+  if(freeCount>=3 && !sessionStorage.getItem('key_ok')){alert('Free trials finished. Key required.');showModal();}
+}
+document.getElementById('analyzeBtn').onclick=analyze;
+document.getElementById('buyKeyBtn').onclick=()=>window.open('https://t.me/Predict456','_blank');
+document.getElementById('submitKeyBtn').onclick=()=>{
+  const k=document.getElementById('accessKeyInput').value.trim();
+  if(k===ACCESS_KEY_EXPECTED){sessionStorage.setItem('key_ok',1);hideModal();alert('Access Granted.');}
+  else alert('Invalid key.');
 };
-
-function loadMemory(){
-    try{
-        const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : {history:[], wins:0, losses:0, rounds:0, predictions:[]};
-    }catch(e){ return {history:[], wins:0, losses:0, rounds:0, predictions:[]}; }
-}
-function saveMemory(){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.memory));
-}
-function parseHist(text){
-    if(!text) return [];
-    return text.split(',').map(s=>s.trim()).filter(s=>s.length).map(Number).filter(n=>!isNaN(n) && n>=0 && n<=9);
-}
-/* ---------- Prediction engine kept as-is ---------- */
-function ensemblePredict(recentNumsMostRecentFirst, recentBSMostRecentFirst){
-    let ones = recentBSMostRecentFirst.slice(0, 5).filter(x => x === 1).length;
-    let majority = ones >= 3 ? 1 : 0;
-    let votes = [majority, majority, majority, majority, 1-majority, 1-majority];
-    return {majority, votes};
-}
-function runPrediction(inputArrOldestFirst) {
-    const nums = inputArrOldestFirst.slice().reverse(); // recent-first
-    const bs = nums.map(x => x>=5 ? 1 : 0);
-    const ens = ensemblePredict(nums, bs);
-    const finalVote = ens.majority;
-    
-    let conf = 50 + Math.round((Math.abs(ens.votes.reduce((a,b)=>a+b,0) - ens.votes.length/2) / (ens.votes.length/2)) * 40);
-    conf = Math.min(99, Math.max(40, conf + (Math.random() * 5)));
-    
-    let predictionResult = { bs: finalVote, conf: conf, label: finalVote === 1 ? 'BIGG' : 'SMALL' };
-    
-    if (conf < 50) {
-        triggerItachiAlert('genjutsu', 'Yeh ek GENJUTSU hai! Surakshit rehne ke liye is daav ko SKIP karo.');
-        predictionResult.label = 'SKIP';
-        predictionResult.conf = 45;
-    } else if (conf > 90) {
-        triggerItachiAlert('amaterasu', 'AMATERASU! Yeh SURESHOT prediction hai.');
-        document.getElementById('mainBody').classList.add('amaterasu-shake-active');
-    }
-    
-    return predictionResult;
-}
-
-/* ITACHI ALERT MODULES */
-function playCustomVoice() {
-    const audio = document.getElementById('uchihaVoice');
-    audio.currentTime = 0;
-    audio.play().catch(e => console.error("Error playing voice:", e));
-}
-function triggerItachiAlert(type, text) {
-    const overlay = document.getElementById('itachiOverlay');
-    const video = document.getElementById('uchihaVideo');
-    const voiceText = document.getElementById('voiceAlertText');
-    
-    voiceText.innerHTML = `<span style="color:var(--neon-red);">${type.toUpperCase()} ALERT:</span><br>${text}`;
-    
-    overlay.style.display = 'flex';
-    video.currentTime = 0;
-    video.play();
-    playCustomVoice();
-    
-    if(type !== 'amaterasu') {
-        setTimeout(hideItachiOverlay, 6000);
-    }
-}
-function hideItachiOverlay() {
-    document.getElementById('itachiOverlay').style.display = 'none';
-    document.getElementById('uchihaVideo').pause();
-    document.getElementById('uchihaVideo').currentTime = 0;
-    document.getElementById('mainBody').classList.remove('amaterasu-shake-active');
-    document.getElementById('uchihaVoice').pause(); 
-}
-
-/* ==============================================================================
-   FREE TRIAL + KEY GATING LOGIC (ADDED)
-   ============================================================================== */
-function hasUsedFreeTrial() {
-    try { return localStorage.getItem(FREE_TRIAL_FLAG) === '1'; } catch(e){ return false; }
-}
-function markFreeTrialUsed() {
-    try { localStorage.setItem(FREE_TRIAL_FLAG, '1'); } catch(e){}
-}
-function isSessionUnlocked() {
-    // session unlock stored in sessionStorage so reopening browser tab asks key again (per your request)
-    try { return sessionStorage.getItem(SESSION_KEY_UNLOCKED) === '1'; } catch(e){ return false; }
-}
-function unlockSession() {
-    try { sessionStorage.setItem(SESSION_KEY_UNLOCKED, '1'); } catch(e){}
-}
-
-function showKeyModal() {
-    const modal = document.getElementById('keyModal');
-    modal.style.display = 'flex';
-    // update free trial button based on flag
-    const freeBtn = document.getElementById('freeTrialBtn');
-    if(hasUsedFreeTrial()) {
-        freeBtn.classList.add('disabled');
-        freeBtn.textContent = 'Free Trial Used';
-        document.getElementById('modalInfo').textContent = 'Free trial already used on this device. Enter key or buy to continue.';
-    } else {
-        freeBtn.classList.remove('disabled');
-        freeBtn.textContent = 'Use Free Trial (One Prediction)';
-        document.getElementById('modalInfo').textContent = 'Choose free trial (one-time per device) or enter your access key to unlock predictions.';
-    }
-    // always disable analyze button until unlocked or free trial accepted
-    document.getElementById('analyzeBtn').disabled = true;
-}
-function hideKeyModal() {
-    const modal = document.getElementById('keyModal');
-    modal.style.display = 'none';
-}
-
-/* Hook up modal buttons */
-document.getElementById('freeTrialBtn').addEventListener('click', ()=>{
-    if(hasUsedFreeTrial()) return;
-    // allow single prediction: mark as used immediately so user can't re-open modal to reuse
-    markFreeTrialUsed();
-    unlockSession(); // allow current session to predict once
-    // track in memory for clarity
-    state.memory.rounds = (state.memory.rounds || 0) + 1;
-    saveMemory();
-    hideKeyModal();
-    document.getElementById('analyzeBtn').disabled = false;
-    alert('Free trial enabled for one prediction on this device. After prediction, key will be required.');
-});
-document.getElementById('buyKeyBtn').addEventListener('click', ()=>{
-    // open Telegram link as requested
-    window.open('https://t.me/Predict456', '_blank');
-});
-document.getElementById('submitKeyBtn').addEventListener('click', ()=>{
-    const val = (document.getElementById('accessKeyInput').value || '').trim();
-    if(!val) { alert('Enter key'); return; }
-    if(val === ACCESS_KEY_EXPECTED) {
-        unlockSession();
-        hideKeyModal();
-        document.getElementById('analyzeBtn').disabled = false;
-        alert('Key accepted. Predictions unlocked for this session.');
-    } else {
-        alert('Invalid key.');
-    }
-});
-
-/* ==============================================================================
-   OVERRIDE analyzeBtn behavior to enforce gating, then call original logic
-   ============================================================================== */
-/* We'll keep the original analyze logic but gate it here:
-   - If session unlocked (by key) -> allow
-   - Else if free trial unused and user chose free trial -> allow (but mark used after prediction)
-   - Else block and re-show modal
-*/
-
-const originalAnalyzeHandler = async function(){
-    const text = (document.getElementById('bigText').value || '').trim();
-    let arr = parseHist(text);
-    if(arr.length < 5){ alert('Please enter at least 5 results (0-9) separated by commas for analysis.'); return; }
-    
-    const runButton = document.getElementById('analyzeBtn');
-    runButton.disabled = true;
-    runButton.textContent = 'ANALYZING...';
-    runButton.style.boxShadow = 'var(--glow-red)';
-    document.getElementById('bsValue').textContent = 'SCANNING';
-    
-    const log = document.getElementById('analysisPanel');
-    log.innerHTML = `<p class="log-line" style="color:white; margin-top:10px;">:: INJECTOR STARTED (ROUND ${state.memory.history.length + 1})</p>` + log.innerHTML;
-
-    setTimeout(() => {
-        const result = runPrediction(arr);
-        
-        document.getElementById('bsValue').textContent = result.label;
-        document.getElementById('predictionTypeDisplay').textContent = `${result.label} INJECTOR`;
-        
-        log.innerHTML = `<p class="log-line">:: PREDICTION: ${result.label} (${result.conf.toFixed(1)}%)</p><p class="log-line" style="color:var(--neon-red);">:: VERDICT: ${result.label === 'SKIP' ? 'SAFETY PROTOCOL' : 'HIGH POTENTIAL'}</p>` + log.innerHTML;
-
-        runButton.disabled = false;
-        runButton.textContent = 'OPEN INJECTOR';
-        runButton.style.boxShadow = '0 0 15px var(--neon-blue), inset 0 0 10px white';
-        
-        // Save State (simplified)
-        state.memory.history = arr; 
-        saveMemory();
-
-        // If session was unlocked by free trial, consume the free trial now (so next prediction requires key)
-        // We used markFreeTrialUsed at button click already. But to be extra safe: if free trial was used and session unlocked without key, ensure it's flagged
-        if(hasUsedFreeTrial() && !isSessionUnlocked()) {
-            // nothing
-        }
-        // If session was unlocked by free trial (we allowed analyzeBtn without entering key earlier),
-        // after prediction we still ensure further predictions are blocked until key is entered (per user request).
-        if(hasUsedFreeTrial() && isSessionUnlocked()) {
-            // consume session unlock so next attempt requires key (user asked: "after one prediction next predictions require key")
-            sessionStorage.removeItem(SESSION_KEY_UNLOCKED);
-            // but keep localStorage flag to remember free trial used
-            alert('Free trial consumed. Next predictions require the access key.');
-            // Re-show modal to require key for next predictions
-            showKeyModal();
-        }
-    }, 3000); // 3 second delay for analysis
-};
-
-/* New wrapper to check gating before calling original handler */
-document.getElementById('analyzeBtn').addEventListener('click', ()=>{
-    // If session currently unlocked by valid key -> allow
-    if(isSessionUnlocked()) {
-        originalAnalyzeHandler();
-        return;
-    }
-    // If free trial not used on device -> modal flow will allow user to pick free trial
-    if(!hasUsedFreeTrial()) {
-        // show modal so user either picks free trial or enters key
-        showKeyModal();
-        return;
-    }
-    // Free trial used and no session unlock -> ask for key
-    showKeyModal();
-});
-
-/* Toggle Analysis Log */
-document.getElementById('toggleDetails').addEventListener('click', ()=>{
-    const panel = document.getElementById('analysisPanel');
-    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-    document.getElementById('toggleDetails').textContent = panel.style.display === 'block' ? 'Hide Analysis Log' : 'Show Analysis Log';
-});
-
-/* --- Initial Setup/Demo Data & initial modal show --- */
-(function init(){
-    if(!(state.memory.history && state.memory.history.length)){
-        document.getElementById('bigText').value = '5,7,8,8,9,3,9,1,2,5,6,7,1,2,3,4,8,9,0,1,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0';
-    } else {
-        document.getElementById('bigText').value = (state.memory.history.slice(-100)).join(',');
-    }
-    
-    document.getElementById('uchihaVideo').muted = true;
-    // Show key modal immediately (user requested: "website open hone se pehele ek free trial ka option hoga")
-    showKeyModal();
-
-    // If session is already unlocked (unlikely by design), enable analyze button
-    if(isSessionUnlocked()) {
-        document.getElementById('analyzeBtn').disabled = false;
-        hideKeyModal();
-    }
-})();
 </script>
 </body>
 </html>
