@@ -1,19 +1,18 @@
-
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>GX TRADER MOD // UCHIHA CORE V20.0 (Pixel-Perfect Edition)</title>
+<title>GX TRADER MOD // UCHIHA CORE V21.0 (Key Locked Edition)</title>
 <style>
-    /* ====== THEME: Uchiha Core - Pixel-Perfect Unix Terminal (V20.0) ====== */
+    /* ====== THEME: Uchiha Core - Pixel-Perfect Unix Terminal (V21.0) ====== */
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=VT323&family=Electrolize&display=swap');
     
     :root{
         --bg: #000000;
-        --panel: rgba(1, 1, 30, 0.7); /* Deep Blue Transparent */
-        --neon-blue: #00FFFF; /* Primary Cyan Neon */
-        --neon-pink: #FF00FF; /* Primary Magenta/Pink Neon (Matching Header) */
+        --panel: rgba(1, 1, 30, 0.7); 
+        --neon-blue: #00FFFF; 
+        --neon-pink: #FF00FF; 
         --accent-red: #FF4500;
         --text-color: #00FFFF;
         --glow-blue: 0 0 10px #00FFFF, 0 0 25px rgba(0,255,255,0.6); 
@@ -23,7 +22,7 @@
         --mono: 'VT323', monospace; 
         --header-font: 'Orbitron', sans-serif;
         --main-font: 'Electrolize', sans-serif;
-        --radius: 8px; /* Slightly rounded corners */
+        --radius: 8px; 
     }
     
     /* Global Styles & Background */
@@ -46,7 +45,7 @@
         content: '';
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.9); /* Dark filter for contrast */
+        background: rgba(0, 0, 0, 0.9); 
         z-index: -1;
     }
 
@@ -60,7 +59,7 @@
         background: var(--panel);
         padding: 5px;
         margin-bottom: 15px;
-        overflow: hidden; /* To keep the title-row border inside */
+        overflow: hidden; 
     }
     .title-row {
         display: flex;
@@ -81,7 +80,6 @@
     }
     .profile-section { display: flex; align-items: center; gap: 8px; }
     .profile-pic { width: 30px; height: 30px; border-radius: 5px; background: var(--bg); border: 2px solid var(--neon-pink); }
-    .side-buttons { display: none; } /* Keeping them hidden as per design focus */
 
     /* BIGG Output Area */
     .bigg-output {
@@ -100,13 +98,35 @@
         text-shadow: var(--glow-pink);
         color: white;
         margin: 0;
-        min-height: 50px; /* Ensure space when text is empty */
+        min-height: 50px; 
     }
     .server-status {
         font-size: 0.9em;
         font-family: var(--mono);
         color: var(--success);
         text-shadow: 0 0 3px var(--success);
+        margin-top: 5px;
+    }
+
+    /* Key Status & Buy Button (New Element) */
+    .key-status-box {
+        background: var(--panel);
+        border: 1px solid var(--neon-red);
+        border-radius: var(--radius);
+        padding: 10px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-family: var(--mono);
+    }
+    .buy-key-btn {
+        background: var(--accent-red);
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        font-size: 1em;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
         margin-top: 5px;
     }
 
@@ -171,7 +191,7 @@
     }
     .log-line { margin: 0; line-height: 1.4; text-shadow: 0 0 1px var(--success); }
     
-    /* --- Uchiha Animation Overlay (The Main Show) --- */
+    /* --- Uchiha Animation Overlay --- */
     #itachiOverlay {
         position: fixed; 
         top: 0; left: 0; 
@@ -213,12 +233,12 @@
     }
     .amaterasu-shake-active { animation: shake 0.1s infinite; }
 
-    /* Typewriter/Glitch Effect for Final Prediction (Unix Style) */
+    /* Typewriter/Glitch Effect */
     @keyframes typing { from { width: 0; } }
     @keyframes blink-caret { 50% { border-color: transparent; } }
     .typewriter {
         overflow: hidden;
-        border-right: .15em solid white; /* Blinking cursor */
+        border-right: .15em solid white; 
         white-space: nowrap;
         margin: 0 auto;
         animation: 
@@ -242,7 +262,6 @@
 </head>
 <body id="mainBody">
 <audio id="uchihaVoice" src="uchiha.mp3" preload="auto"></audio>
-<audio id="typingSound" src="https://assets.mixkit.co/sfx/preview/mixkit-typewriter-key-press-1200.mp3" preload="auto"></audio>
 
 <div id="itachiOverlay">
     <video id="uchihaVideo" src="uchiha.mp4" muted playsinline></video>
@@ -257,7 +276,7 @@
                 <img src="https://via.placeholder.com/40/FF00FF/FFFFFF?text=IT" alt="User" class="profile-pic" />
                 <div style="font-size: 0.9em; font-family: var(--mono);">
                     <span style="color: white; font-weight: bold;">UCHIHA CORE</span>
-                    <div style="font-size: 0.7em; color: var(--neon-pink);">GENJUTSU V20.0</div>
+                    <div style="font-size: 0.7em; color: var(--neon-pink);">GENJUTSU V21.0</div>
                 </div>
             </div>
             <h1>GX TRADER MOD</h1>
@@ -269,17 +288,24 @@
 
         <div class="bigg-output">
             <div id="bsValue" class="glitch-text">---</div>
-            <div class="server-status">SERVER CONNECTED | UCHIHA READY</div>
+            <div class="server-status" id="serverStatusText">SERVER CONNECTED | UCHIHA READY</div>
         </div>
 
         <div class="detail-title" style="margin-top: 5px; font-size: 1.4em;">CHECK RESULT</div>
     </div>
     
+    <div class="key-status-box">
+        <div id="accessStatus">FREE TRIAL AVAILABLE</div>
+        <a href="https://t.me/Predict456" target="_blank" style="text-decoration: none;">
+            <button class="buy-key-btn">BUY KEY (t.me/Predict456)</button>
+        </a>
+    </div>
+
     <div class="detail-section">
         <div class="detail-title">:: SYSTEM STATUS ::</div>
         <div class="detail-item">
             <span class="label">VERSION :</span>
-            <span class="value">20.0.1 ALPHA</span>
+            <span class="value">21.0.1 ALPHA</span>
         </div>
         <div class="detail-item">
             <span class="label">MODE :</span>
@@ -306,7 +332,7 @@
     <div class="footer-panel">
         <div class="detail-title" style="color: var(--neon-red); font-size: 1.1em;">:: UNIX CORE LOGS ::</div>
         <div class="log-area" id="analysisPanel">
-            <p class="log-line">:: UCHIHA CORE V20.0 ACTIVATED</p>
+            <p class="log-line">:: UCHIHA CORE V21.0 ACTIVATED</p>
             <p class="log-line">:: INITIALIZING SHARINGAN PROTOCOL...</p>
         </div>
         <button id="toggleDetails" style="background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 5px 10px; margin-top: 10px; cursor: pointer;">Toggle Analysis Log</button>
@@ -318,18 +344,15 @@
 /* ==============================================================================
    STATE & CORE LOGIC
    ============================================================================== */
-const STORAGE_KEY = 'uchiha_core_v20_memory'; 
+const STORAGE_KEY = 'uchiha_core_v21_memory'; 
+const TRIAL_KEY = 'uchiha_trial_used_v21'; 
+const ACCESS_GRANTED_KEY = 'uchiha_access_granted_v21'; 
+const REQUIRED_KEY = 'Uchiha456';
+const ANIMATION_DURATION_MS = 5000; 
+
 let state = {
   memory: loadMemory(),
 };
-const MAPPING = {
-    0: { bs: 0, color: 'RV', label: 'SMALL' }, 1: { bs: 0, color: 'G', label: 'SMALL' },  
-    2: { bs: 0, color: 'R', label: 'SMALL' }, 3: { bs: 0, color: 'G', label: 'SMALL' },  
-    4: { bs: 0, color: 'R', label: 'SMALL' }, 5: { bs: 1, color: 'GV', label: 'BIGG' },  
-    6: { bs: 1, color: 'R', label: 'BIGG' }, 7: { bs: 1, color: 'G', label: 'BIGG' },  
-    8: { bs: 1, color: 'R', label: 'BIGG' }, 9: { bs: 1, color: 'G', label: 'BIGG' }   
-};
-const ANIMATION_DURATION_MS = 5000; // 5 seconds for uchiha.mp4
 
 function loadMemory(){
     try{
@@ -343,63 +366,65 @@ function parseHist(text){
     return text.split(',').map(s=>s.trim()).filter(s=>s.length).map(Number).filter(n=>!isNaN(n) && n>=0 && n<=9);
 }
 
-// --- Simplified Core Prediction Logic (Focusing on UI/UX now) ---
-function runPredictionLogic(inputArrOldestFirst) {
-    const nums = inputArrOldestFirst.slice().reverse(); // recent-first
-    const bs = nums.map(x => x>=5 ? 1 : 0);
-    
-    // Heuristic: Predict the less frequent result in the last 10 rounds
-    let last10 = bs.slice(0, 10);
-    let bigCount = last10.filter(x => x === 1).length;
-    let smallCount = 10 - bigCount;
-    
-    let finalVote = (bigCount < smallCount) ? 1 : 0; // Predict BIGG if SMALL was more frequent
-    if (bigCount === smallCount) finalVote = bs[0] === 1 ? 0 : 1; // Alternating if equal
-    
-    // Heuristic Confidence based on streak/alternation
-    let streak = 0;
-    for(let i=0; i<last10.length; i++){ if(last10[i] === last10[0]) streak++; else break; }
-    
-    let conf = 50 + (streak * 5); // Base 50, +5% for each identical streak
-    conf = Math.min(99, Math.max(40, conf + (Math.random() * 5)));
+/**
+ * Generates a purely random prediction (BIGG or SMALL) as requested.
+ * @returns {Object} Prediction result.
+ */
+function runPredictionLogic() {
+    // --- RANDOM PREDICTION LOGIC ---
+    const finalVote = Math.random() < 0.5 ? 1 : 0; // 50/50 BIGG or SMALL
+    let label = finalVote === 1 ? 'BIGG' : 'SMALL';
 
-    // Confidence Adjustment for Itachi Alerts
-    let label = MAPPING[finalVote * 5].label; // BIGG or SMALL
+    // Random confidence between 60-80% (just for display)
+    let conf = Math.floor(60 + Math.random() * 20); 
+    
     let alertText = "SHARINGAN: Prediction successful.";
+    let isSureShot = false;
 
-    if (conf < 50) { // Genjutsu/SKIP
+    // Optional: Add a SKIP/Genjutsu alert if confidence is low, as per previous logic
+    if (conf < 60) { 
         label = 'SKIP';
         conf = 45;
         alertText = "Yeh ek GENJUTSU hai! Surakshit rehne ke liye is daav ko SKIP karo.";
-    } else if (conf > 90) { // Amaterasu/SURESHOT
-        alertText = "AMATERASU! Yeh SURESHOT prediction hai!";
     }
     
-    return { finalLabel: label, conf: conf, alertText: alertText, isSureShot: conf > 90 };
+    return { finalLabel: label, conf: conf, alertText: alertText, isSureShot: isSureShot };
 }
 
 
 /* ==============================================================================
-   ITACHI ALERT MODULES (V20.0 - Integrated Animation)
+   ACCESS AND UI UPDATES
+   ============================================================================== */
+function getAccessStatus() {
+    const trialUsed = localStorage.getItem(TRIAL_KEY) === 'true';
+    const accessGranted = localStorage.getItem(ACCESS_GRANTED_KEY) === 'true';
+
+    if (accessGranted) return { status: 'ACCESS GRANTED', color: 'var(--success)' };
+    if (!trialUsed) return { status: 'FREE TRIAL AVAILABLE (1 USE)', color: 'var(--neon-blue)' };
+    return { status: 'KEY REQUIRED (Uchiha456)', color: 'var(--danger)' };
+}
+
+function updateAccessStatusUI() {
+    const status = getAccessStatus();
+    const el = document.getElementById('accessStatus');
+    el.textContent = status.status;
+    el.style.color = status.color;
+    document.getElementById('serverStatusText').textContent = `SERVER CONNECTED | ${status.status}`;
+}
+
+
+/* ==============================================================================
+   ITACHI ALERT MODULES 
    ============================================================================== */
 function playCustomVoice(text) {
-    // Play the uchiha.mp3 file
     const audio = document.getElementById('uchihaVoice');
     audio.currentTime = 0; 
     audio.play().catch(e => console.error("Error playing voice:", e));
 
-    // Also use TTS as a backup/enhancement, attempting to use the Hindi TTS voice
     if ('speechSynthesis' in window) {
         speechSynthesis.cancel(); 
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'hi-IN';
-        utterance.rate = 1.0; 
-        
-        const voices = speechSynthesis.getVoices();
-        const preferredVoice = voices.find(voice => voice.name.includes('Google') && (voice.name.includes('Male') || voice.name.includes('Hindi')));
-        if (preferredVoice) {
-            utterance.voice = preferredVoice;
-        }
         speechSynthesis.speak(utterance);
     }
 }
@@ -408,14 +433,10 @@ function showItachiOverlay(text, isSureShot) {
     const overlay = document.getElementById('itachiOverlay');
     const video = document.getElementById('uchihaVideo');
     const voiceTextEl = document.getElementById('voiceAlertText');
-    const continueBtn = document.getElementById('overlayContinueBtn');
     
-    // 1. Setup UI
     voiceTextEl.innerHTML = text;
-    continueBtn.style.display = 'none'; // Hide button initially
     overlay.style.display = 'flex';
     
-    // 2. Setup Animation/Voice
     video.currentTime = 0;
     video.play();
     playCustomVoice(text); 
@@ -423,13 +444,6 @@ function showItachiOverlay(text, isSureShot) {
     if (isSureShot) {
         document.getElementById('mainBody').classList.add('amaterasu-shake-active');
     }
-    
-    // 3. Auto-hide after animation
-    setTimeout(() => {
-        video.pause();
-        // continueBtn.style.display = 'block'; // Show button if the user needs to dismiss manually
-        hideItachiOverlay(); // Auto-hide for smooth transition
-    }, ANIMATION_DURATION_MS); 
 }
 
 function hideItachiOverlay() {
@@ -440,7 +454,6 @@ function hideItachiOverlay() {
     speechSynthesis.cancel();
 }
 
-// --- Unix Style Typing Animation ---
 function typeWriterEffect(elementId, text) {
     const el = document.getElementById(elementId);
     el.textContent = '';
@@ -448,7 +461,7 @@ function typeWriterEffect(elementId, text) {
     el.classList.add('glitch-text');
 
     let i = 0;
-    const speed = 70; // Typing speed (ms)
+    const speed = 70; 
     
     function type() {
       if (i < text.length) {
@@ -458,7 +471,6 @@ function typeWriterEffect(elementId, text) {
       } else {
         el.classList.remove('typewriter');
         el.classList.remove('glitch-text');
-        // Add final glitch animation after typing is done
         el.classList.add('glitch-text');
       }
     }
@@ -467,30 +479,71 @@ function typeWriterEffect(elementId, text) {
 
 
 /* ==============================================================================
-   UI Updates & Event Handlers
+   MAIN EVENT HANDLER
    ============================================================================== */
-
 document.getElementById('analyzeBtn').addEventListener('click', async ()=>{
-    const inputTextArea = document.getElementById('bigText');
-    const text = (inputTextArea.value || '').trim();
-    let arr = parseHist(text);
-    
-    if(arr.length < 5){ alert('Please enter at least 5 results (0-9) separated by commas for analysis.'); return; }
-    
     const runButton = document.getElementById('analyzeBtn');
     runButton.disabled = true;
     runButton.textContent = 'SHARINGAN ACTIVE...';
     runButton.style.boxShadow = 'var(--glow-pink)';
-    
-    // 1. Initial UI Update / Lock
+
     const bsValueEl = document.getElementById('bsValue');
-    bsValueEl.textContent = 'PROCESSING...';
-    bsValueEl.classList.add('glitch-text');
-    document.getElementById('predictionTypeDisplay').textContent = 'PROCESSING';
+    bsValueEl.textContent = 'AUTHORIZING...';
+    document.getElementById('predictionTypeDisplay').textContent = 'CHECKING';
     document.getElementById('confidenceDisplay').textContent = '-- %';
+
+
+    let trialUsed = localStorage.getItem(TRIAL_KEY) === 'true';
+    let accessGranted = localStorage.getItem(ACCESS_GRANTED_KEY) === 'true';
     
-    // 2. Run Prediction Logic
-    const result = runPredictionLogic(arr);
+    // 1. --- ACCESS CHECK ---
+    if (!accessGranted && !trialUsed) {
+        // FREE TRIAL LOGIC (1st click)
+        showItachiOverlay('FREE TRIAL: Aapko ek muft prediction mil raha hai. Agle ke liye key zaroori hogi.', false);
+        await new Promise(resolve => setTimeout(resolve, ANIMATION_DURATION_MS));
+        localStorage.setItem(TRIAL_KEY, 'true'); // Mark trial as used
+        updateAccessStatusUI();
+    } else if (!accessGranted) {
+        // KEY REQUIRED LOGIC (2nd click onwards)
+        const enteredKey = prompt("FREE TRIAL SAMAAPT ho chuka hai. Prediction ke liye Key (Uchiha456) daalein:");
+        
+        if (enteredKey === REQUIRED_KEY) {
+            localStorage.setItem(ACCESS_GRANTED_KEY, 'true');
+            accessGranted = true;
+            alert("SUCCESS: Key activate ho chuki hai! Prediction shuru kiya ja raha hai.");
+            updateAccessStatusUI();
+            // Re-run the button logic now that access is granted
+            document.getElementById('analyzeBtn').click();
+            return; 
+        } else if (enteredKey !== null && enteredKey !== '') { 
+            alert("Galat Key. Key khareedne ke liye 'BUY KEY' button dabayein.");
+            runButton.disabled = false;
+            runButton.textContent = 'OPEN INJECTOR';
+            updateAccessStatusUI();
+            return;
+        } else { // User clicked Cancel or entered empty string
+            runButton.disabled = false;
+            runButton.textContent = 'OPEN INJECTOR';
+            updateAccessStatusUI();
+            return;
+        }
+    }
+
+    // --- If access is Granted (by Key or Trial) ---
+    
+    const inputTextArea = document.getElementById('bigText');
+    const text = (inputTextArea.value || '').trim();
+    let arr = parseHist(text);
+    
+    if(arr.length < 5){ alert('Please enter at least 5 results (0-9) separated by commas for analysis.'); 
+        runButton.disabled = false;
+        runButton.textContent = 'OPEN INJECTOR';
+        bsValueEl.textContent = '---';
+        return; 
+    }
+
+    // 2. Run Prediction Logic (Simple Random)
+    const result = runPredictionLogic();
     
     // 3. Trigger Itachi Animation/Voice Alert
     showItachiOverlay(result.alertText, result.isSureShot);
@@ -532,7 +585,6 @@ function updateTime() {
 
 // --- Initialization ---
 (function init(){
-    // Setup background data
     if(!(state.memory.history && state.memory.history.length)){
         document.getElementById('bigText').value = '5,7,8,8,9,3,9,1,2,5,6,7,1,2,3,4,8,9,0,1,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0';
     } else {
@@ -541,10 +593,11 @@ function updateTime() {
     
     updateTime();
     setInterval(updateTime, 1000);
+    updateAccessStatusUI();
 
     // Initial message
-    showItachiOverlay('UCHIHA CORE V20.0 ACTIVATED. READY FOR DATA INJECTION.', false);
-    document.getElementById('uchihaVideo').muted = true; // Must be muted for autoplay in many browsers
+    showItachiOverlay('UCHIHA CORE V21.0 ACTIVATED. Access status check ho raha hai.', false);
+    document.getElementById('uchihaVideo').muted = true; 
 
 })();
 </script>
